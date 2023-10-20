@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 
-#define HEIGHT 256
-#define WIDTH 256
+#define HEIGHT 1080
+#define WIDTH 1920
 
 using namespace std;
 
