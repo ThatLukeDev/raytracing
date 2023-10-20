@@ -10,7 +10,7 @@ int main() {
 	cout << "P3\n" << WIDTH << " " << HEIGHT << "\n255\n";
 
 	for (int j = 0; j < HEIGHT; j++) {
-		clog << "\r" << int(double(j) / HEIGHT * 100) << "\% complete (" << j << "/" << HEIGHT << ")";
+		clog << "\r" << int(double(j) / (HEIGHT - 1) * 100) << "\% complete (" << j + 1 << "/" << HEIGHT << ")";
 		for (int i = 0; i < WIDTH; i++) {
 			double r = double(i) / (WIDTH - 1);
 			double g = double(j) / (HEIGHT - 1);
@@ -20,5 +20,6 @@ int main() {
 		}
 	}
 
+	clog << endl;
 	return 0;
 }
