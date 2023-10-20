@@ -22,6 +22,21 @@ void logProgress(int num, int denom) {
 		clog << int(progress * 100) << "\% complete (" << num << "/" << denom << ")";
 }
 
+struct pixel {
+	int R = 0;
+	int G = 0;
+	int B = 0;
+	pixel fromDouble3(double dR, double dG, double dB) {
+		R = int(dR * 255.999);
+		G = int(dG * 255.999);
+		B = int(dB * 255.999);
+		return *this;
+	}
+	string toString() {
+		return to_string(R) + " " + to_string(G) + " " + to_string(B) + "\n";
+	}
+};
+
 int main() {
 	cout << "P3\n" << WIDTH << " " << HEIGHT << "\n255\n";
 
@@ -33,7 +48,8 @@ int main() {
 			double g = 1 - r;
 			double b = double(j) / (HEIGHT - 1);
 
-			cout << int(r * 255.999) << " " << int(g * 255.999) << " " << int(b * 255.999) << "\n";
+			cout << (new pixel)->fromDouble3(r, g, b).toString();
+			//cout << int(r * 255.999) << " " << int(g * 255.999) << " " << int(b * 255.999) << "\n";
 		}
 	}
 
