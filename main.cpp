@@ -23,26 +23,41 @@ void logProgress(int num, int denom) {
 	clog << int(progress * 100) << "\% complete (" << num << "/" << denom << ")";
 }
 struct vec3 {
-	double v1 = 0;
-	double v2 = 0;
-	double v3 = 0;
+	double X = 0;
+	double Y = 0;
+	double Z = 0;
 	vec3 fromInt3(int a, int b, int c) {
-		v1 = double(a);
-		v2 = double(b);
-		v3 = double(c);
+		X = double(a);
+		Y = double(b);
+		Z = double(c);
 		return *this;
 	}
 	vec3 fromDouble3(double a, double b, double c) {
-		v1 = a;
-		v2 = b;
-		v3 = c;
+		X = a;
+		Y = b;
+		Z = c;
 		return *this;
 	}
 	double length_squared() {
-		return v1*v1 + v2*v2 + v3*v3;
+		return X*X + Y*Y + Z*Z;
 	}
 	double length() {
 		return sqrt(length_squared());
+	}
+	vec3 operator +(const vec3& v) {
+		return fromDouble3(X + v.X, Y + v.Y, Z + v.Z);
+	}
+	vec3 operator -(const vec3& v) {
+		return fromDouble3(X - v.X, Y - v.Y, Z - v.Z);
+	}
+	vec3 operator *(const vec3& v) {
+		return fromDouble3(X * v.X, Y * v.Y, Z * v.Z);
+	}
+	vec3 operator /(const vec3& v) {
+		return fromDouble3(X / v.X, Y / v.Y, Z / v.Z);
+	}
+	vec3 operator =(const vec3& v) {
+		return v;
 	}
 };
 
