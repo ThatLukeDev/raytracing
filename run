@@ -1,3 +1,5 @@
 g++ main.cpp
 rm out.ppm
 ./a.out >> out.ppm
+echo Opening output file
+eog out.ppm
