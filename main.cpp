@@ -78,13 +78,20 @@ struct pixel {
 		B = dB;
 		return *this;
 	}
+	char* toByte3() {
+		static char pixel[3];
+		pixel[0] = (char)uint8_t(R);
+		pixel[1] = (char)uint8_t(G);
+		pixel[2] = (char)uint8_t(B);
+		return pixel;
+	}
 	string toString() {
 		return to_string(R) + " " + to_string(G) + " " + to_string(B) + "\n";
 	}
 };
 
 int main() {
-	cout << "P3\n" << WIDTH << " " << HEIGHT << "\n255\n";
+	cout << "P6\n" << WIDTH << " " << HEIGHT << "\n255\n";
 
 	clog << "Rendering image\n";
 	for (int j = 0; j < HEIGHT; j++) {
@@ -94,8 +101,9 @@ int main() {
 			double r = 1 - (double(i) / (WIDTH - 1));
 			double g = 1 - r;
 			double b = double(j) / (HEIGHT - 1);
+			char* raw = (new pixel)->fromDouble3(r, g, b).toByte3();
 
-			cout << (new pixel)->fromDouble3(r, g, b).toString();
+			cout << *(raw) << *(raw + 1) << *(raw + 2);
 		}
 	}
 
