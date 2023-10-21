@@ -22,17 +22,17 @@ void logProgress(int num, int denom) {
 	clog << "] ";
 	clog << int(progress * 100) << "\% complete (" << num << "/" << denom << ")";
 }
-struct vec3 {
+struct vector3 {
 	double X = 0;
 	double Y = 0;
 	double Z = 0;
-	vec3 fromInt3(int a, int b, int c) {
+	vector3 fromInt3(int a, int b, int c) {
 		X = double(a);
 		Y = double(b);
 		Z = double(c);
 		return *this;
 	}
-	vec3 fromDouble3(double a, double b, double c) {
+	vector3 fromDouble3(double a, double b, double c) {
 		X = a;
 		Y = b;
 		Z = c;
@@ -44,22 +44,50 @@ struct vec3 {
 	double length() {
 		return sqrt(length_squared());
 	}
-	vec3 operator +(const vec3& v) {
+	vector3 unit() {
+		double len = length();
+		X /= len;
+		Y /= len;
+		Z /= len;
+		return *this;
+	}
+	vector3 operator +(const vector3& v) {
 		return fromDouble3(X + v.X, Y + v.Y, Z + v.Z);
 	}
-	vec3 operator -(const vec3& v) {
+	vector3 operator -(const vector3& v) {
 		return fromDouble3(X - v.X, Y - v.Y, Z - v.Z);
 	}
-	vec3 operator *(const vec3& v) {
+	vector3 operator *(const vector3& v) {
 		return fromDouble3(X * v.X, Y * v.Y, Z * v.Z);
 	}
-	vec3 operator /(const vec3& v) {
+	vector3 operator /(const vector3& v) {
 		return fromDouble3(X / v.X, Y / v.Y, Z / v.Z);
 	}
-	vec3 operator =(const vec3& v) {
+	vector3 operator =(const vector3& v) {
 		return v;
 	}
 };
+inline vector3 operator +(const vector3& a, vector3& v) {
+	return (new vector3)->fromDouble3(a.X + v.X, a.Y + v.Y, a.Z + v.Z);
+}
+inline vector3 operator -(const vector3& a, vector3& v) {
+	return (new vector3)->fromDouble3(a.X - v.X, a.Y - v.Y, a.Z - v.Z);
+}
+inline vector3 operator *(const vector3& a, vector3& v) {
+	return (new vector3)->fromDouble3(a.X * v.X, a.Y * v.Y, a.Z * v.Z);
+}
+inline vector3 operator /(const vector3& a, vector3& v) {
+	return (new vector3)->fromDouble3(a.X / v.X, a.Y / v.Y, a.Z / v.Z);
+}
+inline vector3 operator *(vector3& v, double a) {
+	return (new vector3)->fromDouble3(v.X * a, v.Y * a, v.Z * a);
+}
+inline vector3 operator /(vector3& v, double a) {
+	return (new vector3)->fromDouble3(v.X / a, v.Y / a, v.Z / a);
+}
+inline ostream& operator <<(ostream& out, vector3 v) {
+	return out << "(" << v.X << "," << v.Y << "," << v.Z << ")";
+}
 
 struct pixel {
 	int R = 0;
@@ -91,7 +119,7 @@ struct pixel {
 };
 
 int main() {
-	cout << "P6\n" << WIDTH << " " << HEIGHT << "\n255\n";
+	cout << "P6 " << WIDTH << " " << HEIGHT << " 255\n";
 
 	clog << "Rendering image\n";
 	for (int j = 0; j < HEIGHT; j++) {
