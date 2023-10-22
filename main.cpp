@@ -136,15 +136,18 @@ struct ray {
 	}
 };
 
-static class camera {
-	public:
-		double scale = 0.1;
-		double width = width * scale;
-		double height = height * scale;
-		double aspect = width / height;
-		double focus = 1;
-		vector3 position = vector3();
+static class cameraC {public:
+	double scale = 0.1;
+	double width = width * scale;
+	double height = height * scale;
+	double aspect = width / height;
+	double focal = 1;
+	vector3 position = vector3();
 } camera;
+static class viewportC : cameraC {public:
+	vector3 start = camera.position - vector3(camera.width / 2, camera.height / 2, camera.focal);
+	vector3 end = start + vector3(camera.width, camera.height, 0.0);
+} viewport;
 
 int main() {
 	//return 0;
