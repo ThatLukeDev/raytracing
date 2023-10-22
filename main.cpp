@@ -26,7 +26,7 @@ struct vector3 {
 	double X = 0;
 	double Y = 0;
 	double Z = 0;
-	vector3() {};
+	vector3() {}
 	vector3(int a, int b, int c) {
 		X = double(a);
 		Y = double(b);
@@ -93,6 +93,7 @@ struct pixel {
 	int G = 0;
 	int B = 0;
 
+	pixel() {}
 	pixel(double dR, double dG, double dB) {
 		R = int(dR * 255.999);
 		G = int(dG * 255.999);
@@ -119,6 +120,7 @@ struct ray {
 	vector3 origin = vector3();
 	vector3 direction = vector3();
 
+	ray() {}
 	ray(vector3 originIn, vector3 directionIn) {
 		origin = originIn;
 		direction = directionIn;
