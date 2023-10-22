@@ -113,6 +113,8 @@ struct pixel {
 	}
 };
 
+using colour = pixel;
+
 struct ray {
 	vector3 origin = vector3();
 	vector3 direction = vector3();
@@ -131,9 +133,12 @@ struct ray {
 int main() {
 	//return 0;
 	//------------------------
-	int width = 1920;
-	int height = 1080;
+	const int width = 1920;
+	const int height = 1080;
+	const double viewportX = 0.1;
 	double aspect = width / height;
+	double vWidth = width * viewportX;
+	double vHeight = height * viewportX;
 	cout << "P6 " << width << " " << height << " 255\n";
 
 	clog << "Rendering image\n";
