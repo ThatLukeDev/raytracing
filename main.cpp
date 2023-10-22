@@ -26,17 +26,15 @@ struct vector3 {
 	double X = 0;
 	double Y = 0;
 	double Z = 0;
-	vector3 fromInt3(int a, int b, int c) {
+	vector3(int a, int b, int c) {
 		X = double(a);
 		Y = double(b);
 		Z = double(c);
-		return *this;
 	}
-	vector3 fromDouble3(double a, double b, double c) {
+	vector3(double a, double b, double c) {
 		X = a;
 		Y = b;
 		Z = c;
-		return *this;
 	}
 	double length_squared() {
 		return X*X + Y*Y + Z*Z;
@@ -94,17 +92,15 @@ struct pixel {
 	int G = 0;
 	int B = 0;
 
-	pixel fromDouble3(double dR, double dG, double dB) {
+	pixel(double dR, double dG, double dB) {
 		R = int(dR * 255.999);
 		G = int(dG * 255.999);
 		B = int(dB * 255.999);
-		return *this;
 	}
-	pixel fromInt3(int dR, int dG, int dB) {
+	pixel(int dR, int dG, int dB) {
 		R = dR;
 		G = dG;
 		B = dB;
-		return *this;
 	}
 	char* toByte3() {
 		static char pixel[3];
@@ -118,7 +114,19 @@ struct pixel {
 	}
 };
 
+struct ray {
+	vector3 origin;
+	vector3 direction;
+
+	ray(vector3 originIn, vector3 directionIn) {
+		origin = originIn;
+		direction = directionIn;
+	}
+};
+
 int main() {
+	//return 0;
+	//------------------------
 	cout << "P6 " << WIDTH << " " << HEIGHT << " 255\n";
 
 	clog << "Rendering image\n";
@@ -129,7 +137,7 @@ int main() {
 			double r = 1 - (double(i) / (WIDTH - 1));
 			double g = 1 - r;
 			double b = double(j) / (HEIGHT - 1);
-			char* raw = (new pixel)->fromDouble3(r, g, b).toByte3();
+			char* raw = pixel(r, g, b).toByte3();
 
 			cout << *(raw) << *(raw + 1) << *(raw + 2);
 		}
