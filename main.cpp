@@ -4,6 +4,9 @@
 
 using namespace std;
 
+const int width = 1920;
+const int height = 1080;
+
 void logProgress(int num, int denom) {
 	double progress = double(num) / (denom - 1); 
 	char progress50 = char(progress * 50);
@@ -133,15 +136,19 @@ struct ray {
 	}
 };
 
+static class camera {
+	public:
+		double scale = 0.1;
+		double width = width * scale;
+		double height = height * scale;
+		double aspect = width / height;
+		double focus = 1;
+		vector3 position = vector3();
+} camera;
+
 int main() {
 	//return 0;
 	//------------------------
-	const int width = 1920;
-	const int height = 1080;
-	const double viewportX = 0.1;
-	double aspect = width / height;
-	double vWidth = width * viewportX;
-	double vHeight = height * viewportX;
 	cout << "P6 " << width << " " << height << " 255\n";
 
 	clog << "Rendering image\n";
