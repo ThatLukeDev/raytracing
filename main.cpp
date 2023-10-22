@@ -26,6 +26,7 @@ struct vector3 {
 	double X = 0;
 	double Y = 0;
 	double Z = 0;
+	vector3() {};
 	vector3(int a, int b, int c) {
 		X = double(a);
 		Y = double(b);
@@ -50,38 +51,38 @@ struct vector3 {
 		return *this;
 	}
 	vector3 operator +(const vector3& v) {
-		return fromDouble3(X + v.X, Y + v.Y, Z + v.Z);
+		return vector3(X + v.X, Y + v.Y, Z + v.Z);
 	}
 	vector3 operator -(const vector3& v) {
-		return fromDouble3(X - v.X, Y - v.Y, Z - v.Z);
+		return vector3(X - v.X, Y - v.Y, Z - v.Z);
 	}
 	vector3 operator *(const vector3& v) {
-		return fromDouble3(X * v.X, Y * v.Y, Z * v.Z);
+		return vector3(X * v.X, Y * v.Y, Z * v.Z);
 	}
 	vector3 operator /(const vector3& v) {
-		return fromDouble3(X / v.X, Y / v.Y, Z / v.Z);
+		return vector3(X / v.X, Y / v.Y, Z / v.Z);
 	}
 	vector3 operator =(const vector3& v) {
 		return v;
 	}
 };
 inline vector3 operator +(const vector3& a, vector3& v) {
-	return (new vector3)->fromDouble3(a.X + v.X, a.Y + v.Y, a.Z + v.Z);
+	return vector3(a.X + v.X, a.Y + v.Y, a.Z + v.Z);
 }
 inline vector3 operator -(const vector3& a, vector3& v) {
-	return (new vector3)->fromDouble3(a.X - v.X, a.Y - v.Y, a.Z - v.Z);
+	return vector3(a.X - v.X, a.Y - v.Y, a.Z - v.Z);
 }
 inline vector3 operator *(const vector3& a, vector3& v) {
-	return (new vector3)->fromDouble3(a.X * v.X, a.Y * v.Y, a.Z * v.Z);
+	return vector3(a.X * v.X, a.Y * v.Y, a.Z * v.Z);
 }
 inline vector3 operator /(const vector3& a, vector3& v) {
-	return (new vector3)->fromDouble3(a.X / v.X, a.Y / v.Y, a.Z / v.Z);
+	return vector3(a.X / v.X, a.Y / v.Y, a.Z / v.Z);
 }
 inline vector3 operator *(vector3& v, double a) {
-	return (new vector3)->fromDouble3(v.X * a, v.Y * a, v.Z * a);
+	return vector3(v.X * a, v.Y * a, v.Z * a);
 }
 inline vector3 operator /(vector3& v, double a) {
-	return (new vector3)->fromDouble3(v.X / a, v.Y / a, v.Z / a);
+	return vector3(v.X / a, v.Y / a, v.Z / a);
 }
 inline ostream& operator <<(ostream& out, vector3 v) {
 	return out << "(" << v.X << "," << v.Y << "," << v.Z << ")";
@@ -115,12 +116,16 @@ struct pixel {
 };
 
 struct ray {
-	vector3 origin;
-	vector3 direction;
+	vector3 origin = vector3();
+	vector3 direction = vector3();
 
 	ray(vector3 originIn, vector3 directionIn) {
 		origin = originIn;
 		direction = directionIn;
+	}
+	vector3 at(double distance) {
+		return origin + direction * distance;
+		return origin + direction * distance;
 	}
 };
 
