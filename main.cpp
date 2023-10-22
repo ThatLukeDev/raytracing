@@ -114,6 +114,7 @@ struct pixel {
 };
 
 using colour = pixel;
+using color = pixel;
 
 struct ray {
 	vector3 origin = vector3();
