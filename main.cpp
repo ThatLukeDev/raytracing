@@ -113,7 +113,6 @@ struct pixel {
 	}
 };
 
-using colour = pixel;
 using color = pixel;
 
 struct ray {
@@ -128,6 +127,9 @@ struct ray {
 	vector3 at(double distance) {
 		return origin + direction * distance;
 		return origin + direction * distance;
+	}
+	color traceColor() {
+		return color();
 	}
 };
 
