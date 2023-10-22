@@ -2,9 +2,6 @@
 #include <fstream>
 #include <cmath>
 
-#define HEIGHT 1080
-#define WIDTH 1920
-
 using namespace std;
 
 void logProgress(int num, int denom) {
@@ -134,16 +131,19 @@ struct ray {
 int main() {
 	//return 0;
 	//------------------------
-	cout << "P6 " << WIDTH << " " << HEIGHT << " 255\n";
+	int width = 1920;
+	int height = 1080;
+	double aspect = width / height;
+	cout << "P6 " << width << " " << height << " 255\n";
 
 	clog << "Rendering image\n";
-	for (int j = 0; j < HEIGHT; j++) {
-		logProgress(j + 1, HEIGHT);
+	for (int j = 0; j < height; j++) {
+		logProgress(j + 1, height);
 
-		for (int i = 0; i < WIDTH; i++) {
-			double r = 1 - (double(i) / (WIDTH - 1));
+		for (int i = 0; i < width; i++) {
+			double r = 1 - (double(i) / (width - 1));
 			double g = 1 - r;
-			double b = double(j) / (HEIGHT - 1);
+			double b = double(j) / (height - 1);
 			char* raw = pixel(r, g, b).toByte3();
 
 			cout << *(raw) << *(raw + 1) << *(raw + 2);
