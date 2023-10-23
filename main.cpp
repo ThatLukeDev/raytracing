@@ -63,16 +63,16 @@ struct vector3 {
 		return v;
 	}
 };
-inline vector3 operator +(const vector3& a, vector3& v) {
+inline vector3 operator +(vector3& a, vector3& v) {
 	return vector3(a.X + v.X, a.Y + v.Y, a.Z + v.Z);
 }
-inline vector3 operator -(const vector3& a, vector3& v) {
+inline vector3 operator -(vector3& a, vector3& v) {
 	return vector3(a.X - v.X, a.Y - v.Y, a.Z - v.Z);
 }
-inline vector3 operator *(const vector3& a, vector3& v) {
+inline vector3 operator *(vector3& a, vector3& v) {
 	return vector3(a.X * v.X, a.Y * v.Y, a.Z * v.Z);
 }
-inline vector3 operator /(const vector3& a, vector3& v) {
+inline vector3 operator /(vector3& a, vector3& v) {
 	return vector3(a.X / v.X, a.Y / v.Y, a.Z / v.Z);
 }
 inline vector3 operator +(vector3& v, double a) {
@@ -131,16 +131,16 @@ struct vector2 {
 		return v;
 	}
 };
-inline vector2 operator +(const vector2& a, vector2& v) {
+inline vector2 operator +(vector2& a, vector2& v) {
 	return vector2(a.X + v.X, a.Y + v.Y);
 }
-inline vector2 operator -(const vector2& a, vector2& v) {
+inline vector2 operator -(vector2& a, vector2& v) {
 	return vector2(a.X - v.X, a.Y - v.Y);
 }
-inline vector2 operator *(const vector2& a, vector2& v) {
+inline vector2 operator *(vector2& a, vector2& v) {
 	return vector2(a.X * v.X, a.Y * v.Y);
 }
-inline vector2 operator /(const vector2& a, vector2& v) {
+inline vector2 operator /(vector2& a, vector2& v) {
 	return vector2(a.X / v.X, a.Y / v.Y);
 }
 inline vector2 operator +(vector2& v, double a) {
@@ -220,11 +220,12 @@ static class cameraC {public:
 	double height = image.height * scale;
 	double aspect = width / height;
 	double focal = 1;
-	vector3 position = vector3();
+	vector3 position = vector3(0, 0, 0);
 } camera;
 static class viewportC : cameraC {public:
 	vector3 start = camera.position - vector3(camera.width / 2, camera.height / 2, camera.focal);
 	vector3 end = start + vector3(camera.width, camera.height, 0.0);
+	double jump = camera.scale;
 } viewport;
 
 int main() {
@@ -237,11 +238,10 @@ int main() {
 		logProgress(j + 1, image.height);
 
 		for (int i = 0; i < image.width; i++) {
-			double r = 1 - (double(i) / (image.width - 1));
-			double g = 1 - r;
-			double b = double(j) / (image.height - 1);
-			char* raw = pixel(r, g, b).toByte3();
+			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, j * viewport.jump, 0.0);
+			ray r = ray(viewportLocation, viewportLocation - camera.position);
 
+			char* raw = r.traceColor().toByte3();
 			cout << *(raw) << *(raw + 1) << *(raw + 2);
 		}
 	}
