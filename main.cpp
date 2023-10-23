@@ -4,9 +4,6 @@
 
 using namespace std;
 
-const int width = 1920;
-const int height = 1080;
-
 void logProgress(int num, int denom) {
 	double progress = double(num) / (denom - 1); 
 	char progress50 = char(progress * 50);
@@ -210,10 +207,17 @@ struct ray {
 	}
 };
 
+static class imageC {public:
+	const int width = 1920;
+	const int height = 1080;
+	double aspect = width / height;
+	int depth = 8;
+} image;
+
 static class cameraC {public:
-	double scale = 0.1;
-	double width = width * scale;
-	double height = height * scale;
+	double scale = 0.001;
+	double width = image.width * scale;
+	double height = image.height * scale;
 	double aspect = width / height;
 	double focal = 1;
 	vector3 position = vector3();
@@ -226,16 +230,16 @@ static class viewportC : cameraC {public:
 int main() {
 	//return 0;
 	//------------------------
-	cout << "P6 " << width << " " << height << " 255\n";
+	cout << "P6 " << image.width << " " << image.height << " 255\n";
 
 	clog << "Rendering image\n";
-	for (int j = 0; j < height; j++) {
-		logProgress(j + 1, height);
+	for (int j = 0; j < image.height; j++) {
+		logProgress(j + 1, image.height);
 
-		for (int i = 0; i < width; i++) {
-			double r = 1 - (double(i) / (width - 1));
+		for (int i = 0; i < image.width; i++) {
+			double r = 1 - (double(i) / (image.width - 1));
 			double g = 1 - r;
-			double b = double(j) / (height - 1);
+			double b = double(j) / (image.height - 1);
 			char* raw = pixel(r, g, b).toByte3();
 
 			cout << *(raw) << *(raw + 1) << *(raw + 2);
