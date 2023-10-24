@@ -40,7 +40,7 @@ int main() {
 
 		for (int i = 0; i < image.width; i++) {
 			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, j * viewport.jump, 0.0);
-			ray r = ray(viewportLocation, viewportLocation - camera.position);
+			ray r = ray(camera.position, viewportLocation - camera.position);
 
 			char* raw = r.traceColor().toByte3();
 			cout << *(raw) << *(raw + 1) << *(raw + 2);
