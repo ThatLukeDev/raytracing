@@ -44,6 +44,9 @@ struct vector3 {
                 return vector3(X / v.X, Y / v.Y, Z / v.Z);
         }
         vector3 operator =(const vector3& v) {
+		X = v.X;
+		Y = v.Y;
+		Z = v.Z;
                 return v;
         }
 };

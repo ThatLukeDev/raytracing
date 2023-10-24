@@ -40,6 +40,8 @@ struct vector2 {
                 return vector2(X / v.X, Y / v.Y);
         }
         vector2 operator =(const vector2& v) {
+		X = v.X;
+		Y = v.Y;
                 return v;
         }
 };      
