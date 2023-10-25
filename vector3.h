@@ -49,6 +49,9 @@ struct vector3 {
 		Z = v.Z;
                 return v;
         }
+	double dot() {
+		return a.X * v.X + a.Y * v.Y + a.Z * v.Z;
+	}
 };
 inline vector3 operator +(vector3& a, vector3& v) {
         return vector3(a.X + v.X, a.Y + v.Y, a.Z + v.Z);

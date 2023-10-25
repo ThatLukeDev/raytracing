@@ -44,6 +44,9 @@ struct vector2 {
 		Y = v.Y;
                 return v;
         }
+	double dot() {
+		return a.X * v.X + a.Y * v.Y;
+	}
 };      
 inline vector2 operator +(vector2& a, vector2& v) {
         return vector2(a.X + v.X, a.Y + v.Y);
