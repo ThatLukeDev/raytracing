@@ -16,7 +16,7 @@ struct ray {
         color traceColor() {
 		// placeholder code
 		vector3 rayAt1 = at(1);
-                return color(abs(rayAt1.X), abs(rayAt1.Y), abs(rayAt1.Z));
+                return color(0.0, 0.0, abs(rayAt1.Y));
         }
 };
 inline ostream& operator <<(ostream& out, ray r) {
