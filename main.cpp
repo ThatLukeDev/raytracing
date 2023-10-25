@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <ctime>
 
 #include "progressbar.h"
 #include "pixel.h"
@@ -35,11 +36,12 @@ static class viewportC : cameraC {public:
 } viewport;
 
 int main() {
+	int startTime = time(0);
 	cout << "P6 " << image.width << " " << image.height << " 255\n";
 
 	clog << "Rendering image\n";
 	for (int j = 0; j < image.height; j++) {
-		progress(j + 1, image.height).logBar();
+		progress(j + 1, image.height, startTime).logBar();
 
 		for (int i = 0; i < image.width; i++) {
 			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, j * viewport.jump, 0.0);
