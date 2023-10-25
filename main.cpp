@@ -14,6 +14,8 @@
 
 using namespace std;
 
+const double pi = 3.141592653589793238463;
+
 static class imageC {public:
 	const int width = 1920;
 	const int height = 1080;
@@ -22,7 +24,8 @@ static class imageC {public:
 } image;
 
 static class cameraC {public:
-	double scale = 0.001;
+	double fov = 90;
+	double scale = fov / image.width * 0.025;
 	double width = image.width * scale;
 	double height = image.height * scale;
 	double aspect = width / height;
@@ -36,6 +39,13 @@ static class viewportC : cameraC {public:
 } viewport;
 
 int main() {
+	clog << "RENDER SETTINGS:" << endl;
+	clog << "RES: " << image.width << "x" << image.height << endl;
+	clog << "FOV: " << atan(viewport.start.X/viewport.start.Z)*(360.0/pi) << endl;
+	clog << "FOCAL: " << camera.focal << endl;
+	clog << "ASPECT: " << camera.aspect << endl;
+	clog << endl;
+
 	int startTime = time(0);
 	cout << "P6 " << image.width << " " << image.height << " 255\n";
 
