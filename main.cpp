@@ -6,6 +6,7 @@
 #include "vector3.h"
 #include "vector2.h"
 #include "ray.h"
+#include "sphere.h"
 #include "progressbar.h"
 
 using namespace std;
