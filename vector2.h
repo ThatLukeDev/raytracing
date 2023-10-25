@@ -44,9 +44,6 @@ struct vector2 {
 		Y = v.Y;
                 return v;
         }
-	double dot() {
-		return a.X * v.X + a.Y * v.Y;
-	}
 };      
 inline vector2 operator +(vector2& a, vector2& v) {
         return vector2(a.X + v.X, a.Y + v.Y);
@@ -71,6 +68,9 @@ inline vector2 operator *(vector2& v, double a) {
 }
 inline vector2 operator /(vector2& v, double a) {
         return vector2(v.X / a, v.Y / a);
+}
+double dot(vector2& a, vector2& v) {
+	return a.X * v.X + a.Y * v.Y;
 }
 inline ostream& operator <<(ostream& out, vector2 v) {
         return out << "(" << v.X << "," << v.Y << ")";
