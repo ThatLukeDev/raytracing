@@ -1,4 +1,4 @@
 sphere objects[] = {
-	sphere(0,0,4,4)
+	sphere(0,0,4,1)
 };
 int objectsLength = sizeof(objects) / sizeof(objects[0]);
