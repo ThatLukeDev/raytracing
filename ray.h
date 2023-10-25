@@ -13,11 +13,6 @@ struct ray {
                 return origin + direction * distance;
                 return origin + direction * distance;
         }
-        color traceColor() {
-		// placeholder code
-		vector3 rayAt1 = at(1);
-                return color(0.0, 0.0, abs(rayAt1.Y));
-        }
 };
 inline ostream& operator <<(ostream& out, ray r) {
         return out << "(" << r.origin << "," << r.direction << ")";

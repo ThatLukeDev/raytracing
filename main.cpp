@@ -2,12 +2,14 @@
 #include <cmath>
 #include <fstream>
 
+#include "progressbar.h"
 #include "pixel.h"
 #include "vector3.h"
 #include "vector2.h"
 #include "ray.h"
 #include "sphere.h"
-#include "progressbar.h"
+#include "objects.cobj"
+#include "raytrace.h"
 
 using namespace std;
 
@@ -43,7 +45,7 @@ int main() {
 			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, j * viewport.jump, 0.0);
 			ray r = ray(camera.position, viewportLocation - camera.position);
 
-			char* raw = r.traceColor().toByte3();
+			char* raw = traceColor(r).toByte3();
 			cout << *(raw) << *(raw + 1) << *(raw + 2);
 		}
 	}
