@@ -2,17 +2,17 @@
 #include <cmath>
 
 struct sphere {
-	double x = 0;
-	double y = 0;
-	double z = 0;
+	vector3 position = vector3();
 	double r = 0;
 
 	sphere() {}
 
-	sphere(double xIn, double yIn, double zIn, double rIn) {
-		x = xIn;
-		y = yIn;
-		z = zIn;
+	sphere(double x, double y, double z, double rIn) {
+		position = vector3(x, y, z);
 		r = rIn;
+	}
+
+	bool intersects(ray r) {
+		return false;
 	}
 };
