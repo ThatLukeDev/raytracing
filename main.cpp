@@ -41,7 +41,7 @@ static class viewportC : cameraC {public:
 int main() {
 	clog << "RENDER SETTINGS:" << endl;
 	clog << "RES: " << image.width << "x" << image.height << endl;
-	clog << "FOV: " << atan(viewport.start.X/viewport.start.Z)*(360.0/pi) << endl;
+	clog << "FOV: " << abs(atan(viewport.start.Z/viewport.start.X)*(360.0/pi)) << endl;
 	clog << "FOCAL: " << camera.focal << endl;
 	clog << "ASPECT: " << camera.aspect << endl;
 	clog << endl;
