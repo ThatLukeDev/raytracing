@@ -24,13 +24,13 @@ static class imageC {public:
 } image;
 
 static class cameraC {public:
+	vector3 position = vector3(0, 0, 0);
+	double focal = 1;
 	double fov = 90;
-	double scale = fov / image.width * 0.025;
+	double scale = ((position.X - (position.Z + focal)/tan((180 - fov) / (-360/pi))) * 2) / image.width;
 	double width = image.width * scale;
 	double height = image.height * scale;
 	double aspect = width / height;
-	double focal = 1;
-	vector3 position = vector3(0, 0, 0);
 } camera;
 static class viewportC : cameraC {public:
 	vector3 start = camera.position + vector3(-camera.width / 2, camera.height / 2, camera.focal);
@@ -41,7 +41,7 @@ static class viewportC : cameraC {public:
 int main() {
 	clog << "RENDER SETTINGS:" << endl;
 	clog << "RES: " << image.width << "x" << image.height << endl;
-	clog << "FOV: " << abs(atan(viewport.start.Z/viewport.start.X)*(360.0/pi)) << endl;
+	clog << "FOV: " << atan(viewport.start.X/viewport.start.Z)*(-360.0/pi) << endl;
 	clog << "FOCAL: " << camera.focal << endl;
 	clog << "ASPECT: " << camera.aspect << endl;
 	clog << endl;
