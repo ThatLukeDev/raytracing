@@ -33,8 +33,8 @@ static class cameraC {public:
 	vector3 position = vector3(0, 0, 0);
 } camera;
 static class viewportC : cameraC {public:
-	vector3 start = camera.position - vector3(camera.width / 2, camera.height / 2, camera.focal);
-	vector3 end = start + vector3(camera.width, camera.height, 0.0);
+	vector3 start = camera.position + vector3(-camera.width / 2, camera.height / 2, camera.focal);
+	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
 } viewport;
 
@@ -54,7 +54,7 @@ int main() {
 		progress(j + 1, image.height, startTime).logBar();
 
 		for (int i = 0; i < image.width; i++) {
-			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, j * viewport.jump, 0.0);
+			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, -j * viewport.jump, 0.0);
 			ray r = ray(camera.position, viewportLocation - camera.position);
 
 			char* raw = traceColor(r).toByte3();

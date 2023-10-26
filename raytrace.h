@@ -5,7 +5,8 @@ color traceColor(ray r) {
 	vector3 rayAt1 = r.at(1);
 	vector3 hit = vector3(-1,-1,-1);
 	for (int i = 0; i < objectsLength; i++) {
-		if (objects[i].intersects(r) ) {
+		double intersectD = objects[i].intersectsAlong(r);
+		if (intersectD > 0) {
 			return color(1.0, 0.0, abs(rayAt1.Y));
 		}
 	}

@@ -29,7 +29,7 @@ struct sphere {
 			return (-b) / 2*a;
 		}
 		else {
-			return (-b - 4*a*c) / 2*a;
+			return (-b - sqrt(b*b - 4*a*c)) / 2*a;
 		}
 	}
 	bool intersects(ray r) {
