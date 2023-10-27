@@ -7,8 +7,8 @@ color traceColor(ray r) {
 	for (int i = 0; i < objectsLength; i++) {
 		double intersectD = objects[i].intersectsAlong(r);
 		if (intersectD > 0) {
-			return color(1.0, 0.0, abs(rayAt1.Y));
+			return color(1.0, 0.0, 0.0);
 		}
 	}
-	return color(0.0, 0.0, rayAt1.Y);
+	return color(0, 0, 0);
 }
