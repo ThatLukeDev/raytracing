@@ -36,6 +36,8 @@ static class viewportC : cameraC {public:
 	vector3 start = camera.position + vector3(-camera.width / 2, camera.height / 2, camera.focal);
 	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
+	int samples = 4;
+	double fluctuation = 0.1;
 } viewport;
 
 int main() {
@@ -57,7 +59,7 @@ int main() {
 			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, -j * viewport.jump, 0.0);
 			ray r = ray(camera.position, viewportLocation - camera.position);
 
-			char* raw = traceColor(r).toByte3();
+			char* raw = traceColor(r, viewport.samples, viewport.fluctuation).toByte3();
 			cout << *(raw) << *(raw + 1) << *(raw + 2);
 		}
 	}
