@@ -10,5 +10,5 @@ color traceColor(ray r) {
 			return color(1.0, 0.0, abs(rayAt1.Y));
 		}
 	}
-	return color(0.0, 0.0, abs(rayAt1.Y));
+	return color(0.0, 0.0, rayAt1.Y);
 }

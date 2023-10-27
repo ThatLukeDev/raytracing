@@ -26,7 +26,7 @@ static class imageC {public:
 static class cameraC {public:
 	vector3 position = vector3(0, 0, 0);
 	double focal = 1;
-	double fov = 90;
+	double fov = 120;
 	double scale = ((position.X - (position.Z + focal)/tan((180 - fov) / (-360/pi))) * 2) / image.width;
 	double width = image.width * scale;
 	double height = image.height * scale;
