@@ -18,9 +18,9 @@ struct sphere {
 
 	double intersectsAlong(ray r) {
 		vector3 SminusO = r.origin - position;
-		double a = dot(r.direction, r.direction);
+		double a = r.direction.length_squared();
 		double b = 2.0 * dot(r.direction, SminusO);
-		double c = dot(SminusO, SminusO) - radius * radius;
+		double c = SminusO.length_squared() - radius * radius;
 		double underRoot = b*b - 4 * a * c;
 		if (underRoot < 0.0) {
 			return -1;
