@@ -3,6 +3,7 @@
 #include <fstream>
 #include <ctime>
 
+#include "random.h"
 #include "progressbar.h"
 #include "pixel.h"
 #include "vector3.h"
@@ -37,7 +38,7 @@ static class viewportC : cameraC {public:
 	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
 	int samples = 4;
-	double fluctuation = 0.1;
+	double fluctuation = 1.0/2048;
 } viewport;
 
 int main() {
