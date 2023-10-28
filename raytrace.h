@@ -22,9 +22,11 @@ color traceColor(ray r, int bounces, int maxBounces, color environment, double f
 		ray bounce = ray(intersect, bounceD);
 
 		output = objectAtSmallest->shade;
-		output.R *= objectAtSmallest->emission/(intersectDsmallest*intersectDsmallest * falloff);
-		output.G *= objectAtSmallest->emission/(intersectDsmallest*intersectDsmallest * falloff);
-		output.B *= objectAtSmallest->emission/(intersectDsmallest*intersectDsmallest * falloff);
+		double multiplier = objectAtSmallest->emission/(intersectDsmallest*intersectDsmallest * falloff);
+		if (multiplier < 0.5) multiplier = 0.5;
+		output.R *= multiplier;
+		output.G *= multiplier;
+		output.B *= multiplier;
 		color bounceOutput = traceColor(bounce, bounces + 1, maxBounces, environment, falloff);
 		output.R *= (bounceOutput.R / 255.999) + 1.0;
 		output.G *= (bounceOutput.G / 255.999) + 1.0;
