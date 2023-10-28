@@ -15,7 +15,9 @@ color traceColor(ray r) {
 	if (intersectDsmallest != pow(2,32)) {
 		vector3 intersect = r.at(intersectDsmallest);
 		vector3 normal = (intersect - objectAtSmallest->position).unit();
-		return color(abs(normal.X), abs(normal.Y), abs(normal.Z));
+		color output = color();
+		output = objectAtSmallest->shade;
+		return output;
 	}
 	return color(0, 0, 0);
 }

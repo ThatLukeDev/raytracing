@@ -4,6 +4,8 @@
 struct sphere {
 	vector3 position = vector3();
 	double radius = 0;
+	color shade = color();
+	double emission = 0;
 
 	sphere() {}
 
@@ -14,6 +16,17 @@ struct sphere {
 	sphere(double x, double y, double z, double r) {
 		position = vector3(x, y, z);
 		radius = r;
+	}
+	sphere(vector3 v, double r, color c) {
+		position = v;
+		radius = r;
+		shade = c;
+	}
+	sphere(vector3 v, double r, color c, double e) {
+		position = v;
+		radius = r;
+		shade = c;
+		emission = e;
 	}
 
 	double intersectsAlong(ray r) {

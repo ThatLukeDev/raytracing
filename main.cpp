@@ -37,8 +37,8 @@ static class viewportC : cameraC {public:
 	vector3 start = camera.position + vector3(-camera.width / 2, camera.height / 2, camera.focal);
 	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
-	int samples = 4;
-	double fluctuation = 0.0005;
+	int samples = 1;
+	double fluctuation = 0;
 } viewport;
 
 int main() {
