@@ -18,8 +18,8 @@ using namespace std;
 const double pi = 3.141592653589793238463;
 
 static class imageC {public:
-	const int width = 1920;
-	const int height = 1080;
+	const int width = 192;
+	const int height = 108;
 	double aspect = width / height;
 	int depth = 8;
 } image;
@@ -37,8 +37,11 @@ static class viewportC : cameraC {public:
 	vector3 start = camera.position + vector3(-camera.width / 2, camera.height / 2, camera.focal);
 	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
-	int samples = 1;
-	double fluctuation = 0;
+	int samples = 256;
+	double flux = 0.0005;
+	const int maxBounces = 4;
+	color environment = color(0.125, 0.25, 0.5);
+	double lightFalloff = 0.1;
 } viewport;
 
 int main() {
@@ -48,7 +51,7 @@ int main() {
 	clog << "FOCAL: " << camera.focal << endl;
 	clog << "ASPECT: " << camera.aspect << endl;
 	clog << "SAMPLES: " << viewport.samples << endl;
-	clog << "SAMPLE FLUX: " << viewport.fluctuation * 200 << "%" << endl;
+	clog << "SAMPLE FLUX: " << viewport.flux * 200 << "%" << endl;
 	clog << endl;
 
 	int startTime = time(0);
@@ -62,7 +65,9 @@ int main() {
 			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, -j * viewport.jump, 0.0);
 			ray r = ray(camera.position, viewportLocation - camera.position);
 
-			char* raw = traceColor(r, viewport.samples, viewport.fluctuation).toByte3();
+			char* raw = traceColor(
+				r, viewport.samples, viewport.flux, viewport.maxBounces, viewport.environment, viewport.lightFalloff
+			).toByte3();
 			cout << *(raw) << *(raw + 1) << *(raw + 2);
 		}
 	}

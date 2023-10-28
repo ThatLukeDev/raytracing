@@ -1,6 +1,6 @@
 #include <cmath>
 
-color traceColor(ray r) {
+color traceColor(ray r, int bounces, int maxBounces, color environment, double falloff) {
 	vector3 rayAt1 = r.at(1);
 	vector3 hit = vector3(-1,-1,-1);
 	double intersectDsmallest = pow(2,32);
@@ -12,21 +12,39 @@ color traceColor(ray r) {
 			objectAtSmallest = &objects[i];
 		}
 	}
-	if (intersectDsmallest != pow(2,32)) {
+	if (intersectDsmallest != pow(2,32) && bounces < maxBounces) {
+		color output = color();
 		vector3 intersect = r.at(intersectDsmallest);
 		vector3 normal = (intersect - objectAtSmallest->position).unit();
-		color output = color();
+
+		vector3 bounceD = vector3().random().unit();
+		if (dot(bounceD, normal) < 0.0) bounceD = bounceD * -1;
+		ray bounce = ray(intersect, bounceD);
+
 		output = objectAtSmallest->shade;
+		output.R *= objectAtSmallest->emission/(intersectDsmallest*intersectDsmallest * falloff);
+		output.G *= objectAtSmallest->emission/(intersectDsmallest*intersectDsmallest * falloff);
+		output.B *= objectAtSmallest->emission/(intersectDsmallest*intersectDsmallest * falloff);
+		color bounceOutput = traceColor(bounce, bounces + 1, maxBounces, environment, falloff);
+		output.R *= (bounceOutput.R / 255.999) + 1.0;
+		output.G *= (bounceOutput.G / 255.999) + 1.0;
+		output.B *= (bounceOutput.B / 255.999) + 1.0;
+
 		return output;
 	}
-	return color(0, 0, 0);
+	return environment;
 }
-color traceColor(ray r, int samples, double maxD) {
+
+color traceColor(ray r, int maxBounces, color environment, double falloff) {
+	return traceColor(r, 0, maxBounces, environment, falloff);
+}
+
+color traceColor(ray r, int samples, double maxD, int maxBounces, color environment, double falloff) {
 	color output = color();
 	for (int i = 0; i < samples; i++) {
 		ray sampleRay = r;
 		sampleRay.direction = (r.direction + vector3(randN() * maxD, randN() * maxD, randN() * maxD)).unit();
-		color sample = traceColor(sampleRay);
+		color sample = traceColor(sampleRay, maxBounces, environment, falloff);
 		output.R += sample.R;
 		output.G += sample.G;
 		output.B += sample.B;
@@ -34,5 +52,8 @@ color traceColor(ray r, int samples, double maxD) {
 	output.R /= samples;
 	output.G /= samples;
 	output.B /= samples;
+	if (output.R > 255) output.R = 255;
+	if (output.G > 255) output.G = 255;
+	if (output.B > 255) output.B = 255;
 	return output;
 }
