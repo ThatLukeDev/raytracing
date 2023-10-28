@@ -12,8 +12,8 @@ sphere objects[] = {
 		color(0.0,0.0,1.0),0.0
 	),
         sphere(
-		vector3(0,-4,4),1,
-		color(1.0,1.0,1.0),50.0
+		vector3(-1,-1,4),1,
+		color(1.0,1.0,1.0),5.0
 	),
 };
 int objectsLength = sizeof(objects) / sizeof(objects[0]);
