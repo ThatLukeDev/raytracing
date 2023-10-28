@@ -31,6 +31,9 @@ struct vector3 {
                 Z /= len;
                 return *this;
         }
+	vector3 random() {
+		return vector3(randN(), randN(), randN());
+	}
         vector3 operator +(const vector3& v) {
                 return vector3(X + v.X, Y + v.Y, Z + v.Z);
         }

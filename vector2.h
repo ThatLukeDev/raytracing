@@ -27,6 +27,9 @@ struct vector2 {
                 Y /= len;
                 return *this;
         }
+	vector2 random() {
+		return vector2(randN(), randN());
+	}
         vector2 operator +(const vector2& v) {
                 return vector2(X + v.X, Y + v.Y);
         }
