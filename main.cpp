@@ -38,7 +38,7 @@ static class viewportC : cameraC {public:
 	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
 	int samples = 4;
-	double fluctuation = 1.0/2048;
+	double fluctuation = 0.0005;
 } viewport;
 
 int main() {
@@ -47,6 +47,8 @@ int main() {
 	clog << "FOV: " << atan(viewport.start.X/viewport.start.Z)*(-360.0/pi) << endl;
 	clog << "FOCAL: " << camera.focal << endl;
 	clog << "ASPECT: " << camera.aspect << endl;
+	clog << "SAMPLES: " << viewport.samples << endl;
+	clog << "SAMPLE FLUX: " << viewport.fluctuation * 200 << "%" << endl;
 	clog << endl;
 
 	int startTime = time(0);
