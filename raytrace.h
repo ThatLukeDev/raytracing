@@ -20,8 +20,7 @@ color traceColor(ray r, int bounces, int maxBounces, color environment, double f
 		vector3 normal = (intersect - objectAtSmallest->position).unit();
 
 		vector3 bounceD = vector3().random().unit();
-		if (dot(bounceD, normal) < 0.0) bounceD = bounceD * -1;
-		ray bounce = ray(intersect + normal, bounceD);
+		ray bounce = ray(intersect, bounceD + normal);
 
 		output = objectAtSmallest->shade;
 		double multiplier = objectAtSmallest->emission/(intersectDsmallest*intersectDsmallest * falloff);
