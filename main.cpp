@@ -89,6 +89,7 @@ int main() {
 		}
 		lines++;
 	});
+		progress(image.height, image.height, startTime).logBar();
 	clog << "\nWriting to output\n";
 	for (size_t i = 0; i < outputSize; i++) {
 		cout << *(output + i);
