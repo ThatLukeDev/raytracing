@@ -59,6 +59,7 @@ int main() {
 	clog << endl;
 
 	int startTime = time(0);
+	int progressTime = time(0);
 	int lines = 1;
 	string header = "P6 " + to_string(image.width) + " " + to_string(image.height) + " 255\n";
 	size_t headerSize = header.length();
@@ -72,7 +73,10 @@ int main() {
 	for_each(execution::par, traceFor.begin(), traceFor.end(), [&](char& v) {
 		int j = int((size_t)&v - (size_t)&traceFor[0]);
 	//tbb::parallel_for(0, image.height, [&](int j) {
-		progress(lines, image.height, startTime).logBar();
+		if (progressTime < time(0)) {
+			progressTime = time(0);
+			progress(lines, image.height, startTime).logBar();
+		}
 
 		for (int i = 0; i < image.width; i++) {
 			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, -j * viewport.jump, 0.0);
