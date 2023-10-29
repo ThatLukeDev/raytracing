@@ -41,7 +41,7 @@ static class viewportC : cameraC {public:
 	vector3 start = camera.position + vector3(-camera.width / 2, camera.height / 2, camera.focal);
 	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
-	int samples = 256;
+	int samples = 1024;
 	double flux = 0.0005;
 	const int maxBounces = 4;
 	color environment = color(0.125, 0.25, 0.5);
