@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <cstring>
 
 using namespace std;
 
@@ -31,6 +32,9 @@ struct vector3 {
                 Z /= len;
                 return *this;
         }
+	double dot(vector3& v) {
+		return X * v.X + Y * v.Y + Z * v.Z;
+	}
 	vector3 random() {
 		return vector3(randN(), randN(), randN());
 	}
@@ -46,37 +50,22 @@ struct vector3 {
         vector3 operator /(const vector3& v) {
                 return vector3(X / v.X, Y / v.Y, Z / v.Z);
         }
-        vector3 operator =(const vector3& v) {
-		X = v.X;
-		Y = v.Y;
-		Z = v.Z;
-                return v;
+	vector3 operator +(double& a) {
+		return vector3(X + a, Y + a, Z + a);
+	}
+	vector3 operator -(double& a) {
+		return vector3(X - a, Y - a, Z - a);
+	}
+	vector3 operator *(double& a) {
+		return vector3(X * a, Y * a, Z * a);
+	}
+	vector3 operator /(double& a) {
+		return vector3(X / a, Y / a, Z / a);
+	}
+        void operator =(const vector3& v) {
+		memcpy(this, &v, sizeof(vector3));
         }
 };
-inline vector3 operator +(vector3& a, vector3& v) {
-        return vector3(a.X + v.X, a.Y + v.Y, a.Z + v.Z);
-}
-inline vector3 operator -(vector3& a, vector3& v) {
-        return vector3(a.X - v.X, a.Y - v.Y, a.Z - v.Z);
-}
-inline vector3 operator *(vector3& a, vector3& v) {
-        return vector3(a.X * v.X, a.Y * v.Y, a.Z * v.Z);
-}
-inline vector3 operator /(vector3& a, vector3& v) {
-        return vector3(a.X / v.X, a.Y / v.Y, a.Z / v.Z);
-}
-inline vector3 operator +(vector3& v, double a) {
-        return vector3(v.X + a, v.Y + a, v.Z + a);
-}
-inline vector3 operator -(vector3& v, double a) {
-        return vector3(v.X - a, v.Y - a, v.Z - a);
-}
-inline vector3 operator *(vector3& v, double a) {
-        return vector3(v.X * a, v.Y * a, v.Z * a);
-}
-inline vector3 operator /(vector3& v, double a) {
-        return vector3(v.X / a, v.Y / a, v.Z / a);
-}
 double dot(vector3& a, vector3& v) {
 	return a.X * v.X + a.Y * v.Y + a.Z * v.Z;
 }

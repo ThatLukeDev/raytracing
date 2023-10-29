@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <cstring>
 
 using namespace std;
 
@@ -42,36 +43,22 @@ struct vector2 {
         vector2 operator /(const vector2& v) {
                 return vector2(X / v.X, Y / v.Y);
         }
-        vector2 operator =(const vector2& v) {
-		X = v.X;
-		Y = v.Y;
-                return v;
+	inline vector2 operator +(double& a) {
+		return vector2(X + a, Y + a);
+	}
+	inline vector2 operator -(double& a) {
+		return vector2(X - a, Y - a);
+	}
+	inline vector2 operator *(double& a) {
+		return vector2(X * a, Y * a);
+	}
+	inline vector2 operator /(double& a) {
+		return vector2(X / a, Y / a);
+	}
+	void operator =(const vector2& v) {
+		memcpy(this, &v, sizeof(vector2));
         }
 };      
-inline vector2 operator +(vector2& a, vector2& v) {
-        return vector2(a.X + v.X, a.Y + v.Y);
-}
-inline vector2 operator -(vector2& a, vector2& v) {
-        return vector2(a.X - v.X, a.Y - v.Y);
-}
-inline vector2 operator *(vector2& a, vector2& v) {
-        return vector2(a.X * v.X, a.Y * v.Y);
-}
-inline vector2 operator /(vector2& a, vector2& v) {
-        return vector2(a.X / v.X, a.Y / v.Y);
-}
-inline vector2 operator +(vector2& v, double a) {
-        return vector2(v.X + a, v.Y + a);
-}
-inline vector2 operator -(vector2& v, double a) {
-        return vector2(v.X - a, v.Y - a);
-}
-inline vector2 operator *(vector2& v, double a) {
-        return vector2(v.X * a, v.Y * a);
-}
-inline vector2 operator /(vector2& v, double a) {
-        return vector2(v.X / a, v.Y / a);
-}
 double dot(vector2& a, vector2& v) {
 	return a.X * v.X + a.Y * v.Y;
 }
