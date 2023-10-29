@@ -3,6 +3,9 @@
 #include <fstream>
 #include <ctime>
 #include <cstring>
+#include <vector>
+#include <execution>
+#include <algorithm>
 
 #include "random.h"
 #include "progressbar.h"
@@ -56,6 +59,7 @@ int main() {
 	clog << endl;
 
 	int startTime = time(0);
+	int lines = 1;
 	string header = "P6 " + to_string(image.width) + " " + to_string(image.height) + " 255\n";
 	size_t headerSize = header.length();
 	size_t outputSize = image.width * image.height * 3 + headerSize;
@@ -63,8 +67,8 @@ int main() {
 	memcpy(output, (char*)header.c_str(), headerSize);
 
 	clog << "Rendering image\n";
-	for (int j = 0; j < image.height; j++) {
-		progress(j + 1, image.height, startTime).logBar();
+	tbb::parallel_for(0, image.height, [&](int j) {
+		progress(lines, image.height, startTime).logBar();
 
 		for (int i = 0; i < image.width; i++) {
 			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, -j * viewport.jump, 0.0);
@@ -75,7 +79,8 @@ int main() {
 			).toByte3();
 			memcpy(output + headerSize + (j * image.width + i) * 3, raw, 3);
 		}
-	}
+		lines++;
+	});
 	clog << "\nWriting to output\n";
 	for (size_t i = 0; i < outputSize; i++) {
 		cout << *(output + i);
