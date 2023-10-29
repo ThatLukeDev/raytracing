@@ -2,6 +2,7 @@
 #include <cmath>
 #include <fstream>
 #include <ctime>
+#include <cstring>
 
 #include "random.h"
 #include "progressbar.h"
@@ -55,7 +56,11 @@ int main() {
 	clog << endl;
 
 	int startTime = time(0);
-	cout << "P6 " << image.width << " " << image.height << " 255\n";
+	char* header = (char*)("P6 " + to_string(image.width) + " " + to_string(image.height) + " 255\n").c_str();
+	size_t headerSize = strlen(header);
+	size_t outputSize = image.width * image.height * 3 + headerSize;
+	char* output = (char*)malloc(outputSize);
+	memcpy(output, header, headerSize);
 
 	clog << "Rendering image\n";
 	for (int j = 0; j < image.height; j++) {
@@ -68,8 +73,12 @@ int main() {
 			char* raw = traceColor(
 				r, viewport.samples, viewport.flux, viewport.maxBounces, viewport.environment, viewport.lightFalloff
 			).toByte3();
-			cout << *(raw) << *(raw + 1) << *(raw + 2);
+			memcpy(output + headerSize + (j * image.width + i) * 3, raw, 3);
 		}
+	}
+	clog << "\nWriting to output\n";
+	for (size_t i = 0; i < outputSize; i++) {
+		cout << *(output + i);
 	}
 
 	clog << endl;
