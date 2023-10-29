@@ -19,8 +19,8 @@ using namespace std;
 const double pi = 3.141592653589793238463;
 
 static class imageC {public:
-	const int width = 192;
-	const int height = 108;
+	const int width = 1920;
+	const int height = 1080;
 	double aspect = width / height;
 	int depth = 8;
 } image;
@@ -38,7 +38,7 @@ static class viewportC : cameraC {public:
 	vector3 start = camera.position + vector3(-camera.width / 2, camera.height / 2, camera.focal);
 	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
-	int samples = 256;
+	int samples = 1;
 	double flux = 0.0005;
 	const int maxBounces = 4;
 	color environment = color(0.125, 0.25, 0.5);
@@ -56,11 +56,11 @@ int main() {
 	clog << endl;
 
 	int startTime = time(0);
-	char* header = (char*)("P6 " + to_string(image.width) + " " + to_string(image.height) + " 255\n").c_str();
-	size_t headerSize = strlen(header);
+	string header = "P6 " + to_string(image.width) + " " + to_string(image.height) + " 255\n";
+	size_t headerSize = header.length();
 	size_t outputSize = image.width * image.height * 3 + headerSize;
 	char* output = (char*)malloc(outputSize);
-	memcpy(output, header, headerSize);
+	memcpy(output, (char*)header.c_str(), headerSize);
 
 	clog << "Rendering image\n";
 	for (int j = 0; j < image.height; j++) {
