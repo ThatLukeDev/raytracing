@@ -67,7 +67,11 @@ int main() {
 	memcpy(output, (char*)header.c_str(), headerSize);
 
 	clog << "Rendering image\n";
-	tbb::parallel_for(0, image.height, [&](int j) {
+	vector<char> traceFor(image.height);
+	fill(traceFor.begin(), traceFor.end(), 0);
+	for_each(execution::par, traceFor.begin(), traceFor.end(), [&](char& v) {
+		int j = int((size_t)&v - (size_t)&traceFor[0]);
+	//tbb::parallel_for(0, image.height, [&](int j) {
 		progress(lines, image.height, startTime).logBar();
 
 		for (int i = 0; i < image.width; i++) {
