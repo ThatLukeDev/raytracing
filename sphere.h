@@ -1,5 +1,10 @@
+#ifndef sphere_h
+#define sphere_h
 #include <iostream>
 #include <cmath>
+#include "vector3.h"
+#include "pixel.h"
+#include "ray.h"
 
 struct sphere {
 	vector3 position = vector3();
@@ -52,3 +57,4 @@ struct sphere {
 		return false;
 	}
 };
+#endif

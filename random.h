@@ -1,3 +1,5 @@
+#ifndef random_h
+#define random_h
 #include <cstdlib>
 #include <ctime>
 
@@ -18,3 +20,4 @@ double randDouble(bool negative) {
 double randN() {
 	return randDouble(true);
 }
+#endif

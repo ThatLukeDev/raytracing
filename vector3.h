@@ -1,3 +1,5 @@
+#ifndef vector3_h
+#define vector3_h
 #include <iostream>
 #include <cmath>
 #include <cstring>
@@ -72,3 +74,4 @@ double dot(vector3& a, vector3& v) {
 inline ostream& operator <<(ostream& out, vector3 v) {
         return out << "(" << v.X << "," << v.Y << "," << v.Z << ")";
 }
+#endif

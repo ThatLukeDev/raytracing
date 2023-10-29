@@ -1,3 +1,5 @@
+#ifndef vector2_h
+#define vector2_h
 #include <iostream>
 #include <cmath>
 #include <cstring>
@@ -65,3 +67,4 @@ double dot(vector2& a, vector2& v) {
 inline ostream& operator <<(ostream& out, vector2 v) {
         return out << "(" << v.X << "," << v.Y << ")";
 }
+#endif

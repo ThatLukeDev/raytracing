@@ -1,3 +1,5 @@
+#ifndef progressbar_h
+#define progressbar_h
 #include <iostream>
 #include <ctime>
 
@@ -43,3 +45,4 @@ struct progress {
 		}
 	}
 };
+#endif

@@ -1,3 +1,5 @@
+#ifndef pixel_h
+#define pixel_h
 #include <iostream>
 #include <cmath>
 
@@ -35,3 +37,4 @@ inline ostream& operator <<(ostream& out, pixel p) {
 }
 
 using color = pixel;
+#endif

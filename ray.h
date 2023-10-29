@@ -1,4 +1,7 @@
+#ifndef ray_h
+#define ray_h
 #include <cmath>
+#include "vector3.h"
 
 struct ray {
         vector3 origin = vector3();
@@ -17,3 +20,4 @@ struct ray {
 inline ostream& operator <<(ostream& out, ray r) {
         return out << "(" << r.origin << "," << r.direction << ")";
 }
+#endif

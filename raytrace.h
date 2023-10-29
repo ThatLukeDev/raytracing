@@ -1,4 +1,9 @@
+#ifndef raytrace_h
+#define raytrace_h
 #include <cmath>
+#include "ray.h"
+#include "pixel.h"
+#include "vector3.h"
 
 color traceColor(ray r, int bounces, int maxBounces, color environment, double falloff) {
 	vector3 rayAt1 = r.at(1);
@@ -60,3 +65,4 @@ color traceColor(ray r, int samples, double maxD, int maxBounces, color environm
 	if (output.B > 255) output.B = 255;
 	return output;
 }
+#endif
