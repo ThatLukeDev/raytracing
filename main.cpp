@@ -22,8 +22,8 @@ using namespace std;
 const double pi = 3.141592653589793238463;
 
 static class imageC {public:
-	const int width = 1920;
-	const int height = 1080;
+	const int width = 192;
+	const int height = 108;
 	double aspect = width / height;
 	int depth = 8;
 } image;
@@ -41,7 +41,7 @@ static class viewportC : cameraC {public:
 	vector3 start = camera.position + vector3(-camera.width / 2, camera.height / 2, camera.focal);
 	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
-	int samples = 1;
+	int samples = 256;
 	double flux = 0.0005;
 	const int maxBounces = 4;
 	color environment = color(0.125, 0.25, 0.5);
@@ -70,7 +70,7 @@ int main() {
 	clog << "Rendering image\n";
 	vector<char> traceFor(image.height);
 	fill(traceFor.begin(), traceFor.end(), 0);
-	for_each(execution::par, traceFor.begin(), traceFor.end(), [&](char& v) {
+	for_each(execution::par_unseq, traceFor.begin(), traceFor.end(), [&](char& v) {
 		int j = int((size_t)&v - (size_t)&traceFor[0]);
 	//tbb::parallel_for(0, image.height, [&](int j) {
 		if (progressTime < time(0)) {
