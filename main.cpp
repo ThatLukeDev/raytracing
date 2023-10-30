@@ -44,7 +44,7 @@ static class viewportC : cameraC {public:
 	int samples = 1024;
 	double flux = 0.0005;
 	const int maxBounces = 4;
-	color environment = color(0.125, 0.25, 0.5);
+	color environment = color(65,135,245);
 	double lightFalloff = 0.0;
 } viewport;
 
