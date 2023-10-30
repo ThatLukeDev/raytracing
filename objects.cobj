@@ -17,3 +17,15 @@ sphere objects[] = {
 	),
 };
 int objectsLength = sizeof(objects) / sizeof(objects[0]);
+double colorClampMin = 16;
+double colorClampMax = 240;
+void clampColor() {
+	for (int i = 0; i < objectsLength; i++) {
+		if (objects[i].shade.R < colorClampMin) objects[i].shade.R = colorClampMin;
+		if (objects[i].shade.R > colorClampMax) objects[i].shade.R = colorClampMax;
+		if (objects[i].shade.G < colorClampMin) objects[i].shade.G = colorClampMin;
+		if (objects[i].shade.G > colorClampMax) objects[i].shade.G = colorClampMax;
+		if (objects[i].shade.B < colorClampMin) objects[i].shade.B = colorClampMin;
+		if (objects[i].shade.B > colorClampMax) objects[i].shade.B = colorClampMax;
+	}
+}

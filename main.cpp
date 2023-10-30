@@ -45,7 +45,7 @@ static class viewportC : cameraC {public:
 	double flux = 0.0005;
 	const int maxBounces = 4;
 	color environment = color(0.125, 0.25, 0.5);
-	double lightFalloff = 0.1;
+	double lightFalloff = 0.0;
 } viewport;
 
 int main() {
@@ -56,7 +56,10 @@ int main() {
 	clog << "ASPECT: " << camera.aspect << endl;
 	clog << "SAMPLES: " << viewport.samples << endl;
 	clog << "SAMPLE FLUX: " << viewport.flux * 200 << "%" << endl;
+	clog << "CLAMP: " << colorClampMin << "-" << colorClampMax << endl;
 	clog << endl;
+
+	clampColor();
 
 	int startTime = time(0);
 	int progressTime = time(0);

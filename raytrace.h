@@ -28,7 +28,13 @@ color traceColor(ray r, int bounces, int maxBounces, color environment, double f
 		ray bounce = ray(intersect, bounceD + normal);
 
 		output = objectAtSmallest->shade;
-		double multiplier = objectAtSmallest->emission/(intersectDsmallest*intersectDsmallest * falloff);
+		double multiplier = objectAtSmallest->emission;
+		if (falloff > 0.01) {
+			multiplier /= (intersectDsmallest*intersectDsmallest * falloff);
+		}
+		else {
+			multiplier *= 2;
+		}
 		if (multiplier < 0.5) multiplier = 0.5;
 		output.R *= multiplier;
 		output.G *= multiplier;
