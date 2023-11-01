@@ -4,8 +4,7 @@
 #include <ctime>
 #include <cstring>
 #include <vector>
-#include <execution>
-#include <algorithm>
+#include <mutex>
 
 #include "random.h"
 #include "progressbar.h"
@@ -61,24 +60,20 @@ int main() {
 
 	clampColor();
 
-	int startTime = time(0);
-	int progressTime = time(0);
+	mutex progressMut;
 	int lines = 1;
 	string header = "P6 " + to_string(image.width) + " " + to_string(image.height) + " 255\n";
 	size_t headerSize = header.length();
 	size_t outputSize = image.width * image.height * 3 + headerSize;
 	char* output = (char*)malloc(outputSize);
 	memcpy(output, (char*)header.c_str(), headerSize);
+	int startTime = time(0);
 
 	clog << "Rendering image\n";
-	vector<char> traceFor(image.height);
-	fill(traceFor.begin(), traceFor.end(), 0);
-	for_each(execution::par_unseq, traceFor.begin(), traceFor.end(), [&](char& v) {
-		int j = int((size_t)&v - (size_t)&traceFor[0]);
-	//tbb::parallel_for(0, image.height, [&](int j) {
-		if (progressTime < time(0)) {
-			progressTime = time(0);
+	for (int j = 0; j < image.height; j++) {
+		if (progressMut.try_lock()) {
 			progress(lines, image.height, startTime).logBar();
+			progressMut.unlock();
 		}
 
 		for (int i = 0; i < image.width; i++) {
@@ -91,8 +86,8 @@ int main() {
 			memcpy(output + headerSize + (j * image.width + i) * 3, raw, 3);
 		}
 		lines++;
-	});
-		progress(image.height, image.height, startTime).logBar();
+	}
+	progress(image.height, image.height, startTime).logBar();
 	clog << "\nWriting to output\n";
 	for (size_t i = 0; i < outputSize; i++) {
 		cout << *(output + i);

@@ -40,15 +40,10 @@ struct sphere {
 		double b = 2.0 * dot(r.direction, SminusO);
 		double c = SminusO.length_squared() - radius * radius;
 		double underRoot = b*b - 4 * a * c;
-		if (underRoot < 0.0) {
+		if (underRoot < 0.0)
 			return -1;
-		}
-		else if (underRoot == 0.0) {
-			return (-b) / 2*a;
-		}
-		else {
-			return (-b - sqrt(b*b - 4*a*c)) / 2*a;
-		}
+		else
+			return (-b - sqrt(underRoot)) / 2*a;
 	}
 	bool intersects(ray r) {
 		if (intersectsAlong(r) != -1) {

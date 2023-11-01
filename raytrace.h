@@ -6,8 +6,8 @@
 #include "vector3.h"
 
 color traceColor(ray r, int bounces, int maxBounces, color environment, double falloff) {
-	vector3 rayAt1 = r.at(1);
-	vector3 hit = vector3(-1,-1,-1);
+	if (bounces > maxBounces)
+		return environment;
 	double intersectDsmallest = pow(2,32);
 	sphere* objectAtSmallest = nullptr;
 	for (int i = 0; i < objectsLength; i++) {
@@ -19,7 +19,7 @@ color traceColor(ray r, int bounces, int maxBounces, color environment, double f
 			}
 		}
 	}
-	if (intersectDsmallest != pow(2,32) && bounces < maxBounces) {
+	if (intersectDsmallest != pow(2,32)) {
 		color output = color();
 		vector3 intersect = r.at(intersectDsmallest);
 		vector3 normal = (intersect - objectAtSmallest->position).unit();
