@@ -1,4 +1,4 @@
-g++ main.cpp -ltbb
+g++ main.cpp
 rm out.ppm
 time ./a.out >> out.ppm
 echo Opening output file

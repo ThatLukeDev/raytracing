@@ -6,6 +6,7 @@
 #include <vector>
 #include <mutex>
 
+#include "threading.h"
 #include "random.h"
 #include "progressbar.h"
 #include "pixel.h"
@@ -70,7 +71,8 @@ int main() {
 	int startTime = time(0);
 
 	clog << "Rendering image\n";
-	for (int j = 0; j < image.height; j++) {
+	jobHandler jobs; 
+	for (int j = 0; j < image.height; j++) jobs.addJob([&, j]() {
 		if (progressMut.try_lock()) {
 			progress(lines, image.height, startTime).logBar();
 			progressMut.unlock();
@@ -86,7 +88,8 @@ int main() {
 			memcpy(output + headerSize + (j * image.width + i) * 3, raw, 3);
 		}
 		lines++;
-	}
+	});
+	jobs.start();
 	progress(image.height, image.height, startTime).logBar();
 	clog << "\nWriting to output\n";
 	for (size_t i = 0; i < outputSize; i++) {
