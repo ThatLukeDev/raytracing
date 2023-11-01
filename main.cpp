@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <cmath>
 #include <fstream>
 #include <ctime>
@@ -82,10 +83,14 @@ int main() {
 			vector3 viewportLocation = viewport.start + vector3(i * viewport.jump, -j * viewport.jump, 0.0);
 			ray r = ray(camera.position, viewportLocation - camera.position);
 
-			char* raw = traceColor(
+			color outPixel = traceColor(
 				r, viewport.samples, viewport.flux, viewport.maxBounces, viewport.environment, viewport.lightFalloff
-			).toByte3();
-			memcpy(output + headerSize + (j * image.width + i) * 3, raw, 3);
+			);
+			char* outByte3 = (char*)malloc(3);
+			outByte3[0] = outPixel.R;
+			outByte3[1] = outPixel.G;
+			outByte3[2] = outPixel.B;
+			memcpy(output + headerSize + (j * image.width + i) * 3, outByte3, 3);
 		}
 		lines++;
 	});

@@ -23,9 +23,9 @@ struct pixel {
         }
         char* toByte3() {
                 static char pixel[3];
-                pixel[0] = (char)uint8_t(R);
-                pixel[1] = (char)uint8_t(G);
-                pixel[2] = (char)uint8_t(B);
+                pixel[0] = (char)R;
+                pixel[1] = (char)G;
+                pixel[2] = (char)B;
                 return pixel;
         }
         string toString() {
