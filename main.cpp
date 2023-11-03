@@ -97,9 +97,10 @@ int main() {
 	jobs.start();
 	progress(image.height, image.height, startTime).logBar();
 	clog << "\nWriting to output\n";
-	for (size_t i = 0; i < outputSize; i++) {
-		cout << *(output + i);
-	}
+	ofstream outfile;
+	outfile.open("out.ppm");
+	outfile.write(output, outputSize);
+	outfile.close();
 
 	clog << endl;
 	return 0;
