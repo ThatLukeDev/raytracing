@@ -53,11 +53,11 @@ color traceColor(ray r, int maxBounces, color environment, double falloff) {
 	return traceColor(r, 0, maxBounces, environment, falloff);
 }
 
-color traceColor(ray r, int samples, double maxD, int maxBounces, color environment, double falloff) {
+color traceColor(ray r, int samples, double maxD, int maxBounces, color environment, double falloff, randomDistribution rnd) {
 	color output = color();
 	for (int i = 0; i < samples; i++) {
 		ray sampleRay = r;
-		sampleRay.direction = (r.direction + vector3(randN() * maxD, randN() * maxD, randN() * maxD)).unit();
+		sampleRay.direction = (r.direction + vector3(rnd.randN() * maxD, rnd.randN() * maxD, rnd.randN() * maxD)).unit();
 		color sample = traceColor(sampleRay, maxBounces, environment, falloff);
 		output.R += sample.R;
 		output.G += sample.G;
@@ -70,5 +70,8 @@ color traceColor(ray r, int samples, double maxD, int maxBounces, color environm
 	if (output.G > 255) output.G = 255;
 	if (output.B > 255) output.B = 255;
 	return output;
+}
+color traceColor(ray r, int samples, double maxD, int maxBounces, color environment, double falloff) {
+	return traceColor(r, samples, maxD, maxBounces, environment, falloff, randomDistribution(time(0)));
 }
 #endif

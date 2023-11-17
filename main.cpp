@@ -74,6 +74,8 @@ int main() {
 	clog << "Rendering image\n";
 	jobHandler jobs; 
 	for (int j = 0; j < image.height; j++) jobs.addJob([&, j]() {
+	randomDistribution rnd(1);
+	//for (int j = 0; j < image.height; j++) {
 		if (progressMut.try_lock()) {
 			progress(lines, image.height, startTime).logBar();
 			progressMut.unlock();
@@ -84,7 +86,7 @@ int main() {
 			ray r = ray(camera.position, viewportLocation - camera.position);
 
 			color outPixel = traceColor(
-				r, viewport.samples, viewport.flux, viewport.maxBounces, viewport.environment, viewport.lightFalloff
+				r, viewport.samples, viewport.flux, viewport.maxBounces, viewport.environment, viewport.lightFalloff, rnd
 			);
 			char* outByte3 = (char*)malloc(3);
 			outByte3[0] = outPixel.R;

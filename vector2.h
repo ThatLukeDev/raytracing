@@ -31,7 +31,8 @@ struct vector2 {
                 return *this;
         }
 	vector2 random() {
-		return vector2(randN(), randN());
+		randomDistribution rnd = randomDistribution(time(0));
+		return vector2(rnd.randN(), rnd.randN());
 	}
         vector2 operator +(const vector2& v) {
                 return vector2(X + v.X, Y + v.Y);

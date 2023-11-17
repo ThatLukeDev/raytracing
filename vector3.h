@@ -38,7 +38,8 @@ struct vector3 {
 		return X * v.X + Y * v.Y + Z * v.Z;
 	}
 	vector3 random() {
-		return vector3(randN(), randN(), randN());
+		randomDistribution rnd = randomDistribution(time(0));
+		return vector3(rnd.randN(), rnd.randN(), rnd.randN());
 	}
         vector3 operator +(const vector3& v) {
                 return vector3(X + v.X, Y + v.Y, Z + v.Z);
