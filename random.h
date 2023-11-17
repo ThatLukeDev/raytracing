@@ -8,6 +8,7 @@ class randomDistribution {public:
 	int seed = 1;
 	int counter = 344;
 	const int MAX = INT_MAX;
+	containedRnd cSpreadRnd;
 
 	randomDistribution() { }
 	randomDistribution(int _seed) { seed = _seed; _val = _seed; }
@@ -17,7 +18,7 @@ class randomDistribution {public:
 		return _val;
 	}
 	int randUint() {
-		return __random();
+		return cSpreadRnd.__random();
 	}
 	int randInt(int min, int max) {
 		return randUint() % max + min;

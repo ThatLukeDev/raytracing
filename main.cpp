@@ -74,8 +74,8 @@ int main() {
 	clog << "Rendering image\n";
 	jobHandler jobs; 
 	for (int j = 0; j < image.height; j++) jobs.addJob([&, j]() {
-	randomDistribution rnd(1);
 	//for (int j = 0; j < image.height; j++) {
+		randomDistribution rnd(1);
 		if (progressMut.try_lock()) {
 			progress(lines, image.height, startTime).logBar();
 			progressMut.unlock();
