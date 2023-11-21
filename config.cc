@@ -20,11 +20,14 @@ static class viewportC : cameraC {public:
 	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
 	int samples = 1024;
-	double flux = 0.0005;
+	double flux = 0.001;
 	const int maxBounces = 4;
 	color environment = color(65,135,245);
 	double lightFalloff = 0.0;
 } viewport;
+
+double colorClampMin = 16;
+double colorClampMax = 240;
 
 sphere objects[] = {
 	sphere(
@@ -45,8 +48,7 @@ sphere objects[] = {
 	),
 };
 int objectsLength = sizeof(objects) / sizeof(objects[0]);
-double colorClampMin = 16;
-double colorClampMax = 240;
+
 void clampColor() {
 	for (int i = 0; i < objectsLength; i++) {
 		if (objects[i].shade.R < colorClampMin) objects[i].shade.R = colorClampMin;
