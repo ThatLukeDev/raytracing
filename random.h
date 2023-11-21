@@ -18,6 +18,7 @@ class randomDistribution {public:
 		return _val;
 	}
 	int randUint() {
+		//return randInt();
 		return cSpreadRnd.__random();
 	}
 	int randInt(int min, int max) {
