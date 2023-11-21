@@ -7,6 +7,9 @@
 #include <vector>
 #include <mutex>
 
+using namespace std;
+const double pi = 3.141592653589793238463;
+
 #include "threading.h"
 #include "random.h"
 #include "progressbar.h"
@@ -15,39 +18,8 @@
 #include "vector2.h"
 #include "ray.h"
 #include "sphere.h"
-#include "objects.cobj"
+#include "config.cc"
 #include "raytrace.h"
-
-using namespace std;
-
-const double pi = 3.141592653589793238463;
-
-static class imageC {public:
-	const int width = 192;
-	const int height = 108;
-	double aspect = width / height;
-	int depth = 8;
-} image;
-
-static class cameraC {public:
-	vector3 position = vector3(0, 0, 0);
-	double focal = 1;
-	double fov = 90;
-	double scale = ((position.X - (position.Z + focal)/tan((180 - fov) / (-360/pi))) * 2) / image.width;
-	double width = image.width * scale;
-	double height = image.height * scale;
-	double aspect = width / height;
-} camera;
-static class viewportC : cameraC {public:
-	vector3 start = camera.position + vector3(-camera.width / 2, camera.height / 2, camera.focal);
-	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
-	double jump = camera.scale;
-	int samples = 1024;
-	double flux = 0.0005;
-	const int maxBounces = 4;
-	color environment = color(65,135,245);
-	double lightFalloff = 0.0;
-} viewport;
 
 int main() {
 	clog << "RENDER SETTINGS:" << endl;
