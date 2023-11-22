@@ -5,7 +5,7 @@
 #include "pixel.h"
 #include "vector3.h"
 
-color traceColor(ray r, int bounces, int maxBounces, color environment, double falloff, randomDistribution& rnd) {
+color traceColor(ray& r, int bounces, int maxBounces, color environment, double falloff, randomDistribution& rnd) {
 	if (bounces > maxBounces)
 		return environment;
 	double intersectDsmallest = 2147483647;
@@ -36,9 +36,9 @@ color traceColor(ray r, int bounces, int maxBounces, color environment, double f
 			multiplier *= 2;
 		}
 		if (multiplier < 0.5) multiplier = 0.5;
-		output.R *= multiplier;
-		output.G *= multiplier;
-		output.B *= multiplier;
+		output.R = output.R * multiplier;
+		output.G = output.G * multiplier;
+		output.B = output.B * multiplier;
 		color bounceOutput = traceColor(bounce, bounces + 1, maxBounces, environment, falloff, rnd);
 		output.R *= (bounceOutput.R / 255.999) + 1.0;
 		output.G *= (bounceOutput.G / 255.999) + 1.0;
@@ -49,11 +49,11 @@ color traceColor(ray r, int bounces, int maxBounces, color environment, double f
 	return environment;
 }
 
-color traceColor(ray r, int maxBounces, color environment, double falloff, randomDistribution& rnd) {
+color traceColor(ray& r, int maxBounces, color environment, double falloff, randomDistribution& rnd) {
 	return traceColor(r, 0, maxBounces, environment, falloff, rnd);
 }
 
-color traceColor(ray r, int samples, double maxD, int maxBounces, color environment, double falloff, randomDistribution& rnd) {
+color traceColor(ray& r, int samples, double maxD, int maxBounces, color environment, double falloff, randomDistribution& rnd) {
 	color output = color();
 	for (int i = 0; i < samples; i++) {
 		ray sampleRay = r;

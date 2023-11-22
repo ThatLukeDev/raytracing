@@ -4,8 +4,6 @@
 
 class randomDistribution {public:
 	int seed = 1;
-	int counter = 344;
-	const int MAX = INT_MAX;
 
 	randomDistribution() { }
 	randomDistribution(int _seed) { seed = _seed; _val = _seed; }
@@ -21,15 +19,15 @@ class randomDistribution {public:
 		return randUint() % max + min;
 	}
 	double randDouble() {
-		return double(randUint()) / MAX;
+		return double(randUint()) / INT_MAX;
 	}
 	double randDoubleO() {
-		return double(rand()) / MAX;
+		return double(rand()) / INT_MAX;
 	}
 	double randDouble(bool negative) {
 		if (negative)
-			return 1 - 2*(double(randUint()) / MAX);
-		return double(randUint()) / MAX;
+			return 1 - 2*(double(randUint()) / INT_MAX);
+		return double(randUint()) / INT_MAX;
 	}
 	double randN() {
 		return randDouble(true);
