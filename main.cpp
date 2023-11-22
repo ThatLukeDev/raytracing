@@ -47,7 +47,7 @@ int main() {
 	jobHandler jobs; 
 	for (int j = 0; j < image.height; j++) jobs.addJob([&, j]() {
 	//for (int j = 0; j < image.height; j++) {
-		randomDistribution rnd(1);
+		randomDistribution rnd(j);
 		if (progressMut.try_lock()) {
 			progress(lines, image.height, startTime).logBar();
 			progressMut.unlock();
