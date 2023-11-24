@@ -31,19 +31,19 @@ double colorClampMax = 240;
 
 sphere objects[] = {
 	sphere(
-		vector3(-1,1,2),1,
+		vector3(1,-1,2),1,
 		color(240,0,20),0.0
 	),
         sphere(
-		vector3(1,0,4),1,
+		vector3(-1,0,4),1,
 		color(35,140,35),0.0
 	),
         sphere(
-		vector3(3,-2,4),1,
+		vector3(-3,2,4),1,
 		color(0,70,170),0.0
 	),
         sphere(
-		vector3(-1,-1,4),1,
+		vector3(1,1,4),1,
 		color(255,255,255),5.0
 	),
 };
