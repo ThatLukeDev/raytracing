@@ -11,6 +11,7 @@ struct sphere {
 	double radius = 0;
 	color shade = color();
 	double emission = 0;
+	double reflectance = 0;
 
 	sphere() {}
 
@@ -32,6 +33,13 @@ struct sphere {
 		radius = r;
 		shade = c;
 		emission = e;
+	}
+	sphere(vector3 v, double r, color c, double e, double _reflectance) {
+		position = v;
+		radius = r;
+		shade = c;
+		emission = e;
+		reflectance = _reflectance;
 	}
 
 	double intersectsAlong(ray r) {

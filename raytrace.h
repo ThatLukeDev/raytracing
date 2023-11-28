@@ -21,11 +21,11 @@ color traceColor(ray& r, int bounces, int maxBounces, color environment, double 
 	}
 	if (objectAtSmallest != nullptr) {
 		color output = color();
+
 		vector3 intersect = r.at(intersectDsmallest);
 		vector3 normal = (intersect - objectAtSmallest->position).unit();
-
-		vector3 bounceD = vector3(rnd.randN(), rnd.randN(), rnd.randN()).unit();
-		ray bounce = ray(intersect, bounceD + normal);
+		vector3 randVector = vector3(rnd.randN(), rnd.randN(), rnd.randN()).unit();
+		ray bounce = ray(intersect, r.direction).reflect(normal, randVector);
 
 		output = objectAtSmallest->shade;
 		double multiplier = objectAtSmallest->emission;

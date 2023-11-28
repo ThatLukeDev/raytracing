@@ -13,6 +13,16 @@ struct ray {
 	vector3 at(double distance) {
 		return origin + direction * distance;
 	}
+
+	ray reflect(vector3& normal) {
+		ray reflected = ray(origin, normal);
+		return reflected;
+	}
+	ray reflect(vector3& normal, vector3 fuzz) {
+		ray reflected = reflect(normal);
+		reflected.direction = reflected.direction + fuzz;
+		return reflected;
+	}
 };
 inline ostream& operator <<(ostream& out, ray r) {
 	return out << "(" << r.origin << "," << r.direction << ")";
