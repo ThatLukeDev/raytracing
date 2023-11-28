@@ -20,7 +20,7 @@ struct ray {
 	}
 	ray reflect(vector3& normal, vector3 fuzz) {
 		ray reflected = reflect(normal);
-		reflected.direction = reflected.direction + fuzz;
+		reflected.direction = (reflected.direction + fuzz).unit();
 		return reflected;
 	}
 };
