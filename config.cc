@@ -8,7 +8,7 @@ static class imageC {public:
 static class cameraC {public:
 	vector3 position = vector3(0, 0, 0);
 	double focal = 1;
-	double fov = 90;
+	double fov = 120;
 	double scale = ((position.X - (position.Z + focal)/tan((180 - fov) / (-360/pi))) * 2) / image.width;
 	double width = image.width * scale;
 	double height = image.height * scale;
@@ -19,7 +19,7 @@ static class viewportC : cameraC {public:
 	vector3 start = camera.position + vector3(-camera.width / 2, camera.height / 2, camera.focal);
 	vector3 end = start + vector3(camera.width, -camera.height, 0.0);
 	double jump = camera.scale;
-	int samples = 1024;
+	int samples = 10000;
 	double flux = 0.001;
 	const int maxBounces = 4;
 	color environment = color(65,135,245);
@@ -31,20 +31,16 @@ double colorClampMax = 240;
 
 sphere objects[] = {
 	sphere(
-		vector3(1,-1,2),1,
+		vector3(0,-1,3),1,
 		color(240,0,20),0.0
 	),
         sphere(
-		vector3(-1,0,4),1,
+		vector3(0,-102,3),100,
 		color(35,140,35),0.0
 	),
         sphere(
-		vector3(-3,2,4),1,
-		color(0,70,170),0.0
-	),
-        sphere(
-		vector3(1,1,4),1,
-		color(255,255,255),5.0
+		vector3(3,4,3),1,
+		color(235,215,55),5.0
 	),
 };
 int objectsLength = sizeof(objects) / sizeof(objects[0]);
