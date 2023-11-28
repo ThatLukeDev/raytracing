@@ -12,8 +12,8 @@ struct vector3 {
 	double Z = 0;
 
 	vector3() { }
-	vector3(int _X, int _Y, int _Z) { X = double(_X); Y = double(_Y); Z = double(_Z); }
-	vector3(double _X, double _Y, double _Z) { X = _X; Y = _Y; Z = _Z; }
+	vector3(int _X, int _Y, int _Z) : X(double(_X)), Y(double(_Y)), Z(double(_Z)) { }
+	vector3(double _X, double _Y, double _Z) : X(_X), Y(_Y), Z(_Z) { }
 
 	double length_squared() {
 		return X*X + Y*Y + Z*Z;

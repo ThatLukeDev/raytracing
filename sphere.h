@@ -14,33 +14,11 @@ struct sphere {
 	double reflectance = 0;
 
 	sphere() {}
-
-	sphere(vector3 v, double r) {
-		position = v;
-		radius = r;
-	}
-	sphere(double x, double y, double z, double r) {
-		position = vector3(x, y, z);
-		radius = r;
-	}
-	sphere(vector3 v, double r, color c) {
-		position = v;
-		radius = r;
-		shade = c;
-	}
-	sphere(vector3 v, double r, color c, double e) {
-		position = v;
-		radius = r;
-		shade = c;
-		emission = e;
-	}
-	sphere(vector3 v, double r, color c, double e, double _reflectance) {
-		position = v;
-		radius = r;
-		shade = c;
-		emission = e;
-		reflectance = _reflectance;
-	}
+	sphere(vector3 _position, double _radius) : position(_position), radius(_radius) { }
+	sphere(double _x, double _y, double _z, double _radius) : position(vector3(_x, _y, _z)), radius(_radius) { }
+	sphere(vector3 _position, double _radius, color _shade) : position(_position), radius(_radius), shade(_shade) { }
+	sphere(vector3 _position, double _radius, color _shade, double _emission) : position(_position), radius(_radius), shade(_shade), emission(_emission) { }
+	sphere(vector3 _position, double _radius, color _shade, double _emission, double _reflectance) : position(_position), radius(_radius), shade(_shade), emission(_emission), reflectance(_reflectance) { }
 
 	double intersectsAlong(ray r) {
 		vector3 SminusO = r.origin - position;

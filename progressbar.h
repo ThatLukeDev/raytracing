@@ -12,14 +12,10 @@ struct progress {
 	int dtime = 0;
 	progress() {}
 
-	progress(int _num, int _denom) {
-		num = _num;
-		denom = _denom;
+	progress(int _num, int _denom) : num(_num), denom(_denom) {
 		completion = double(num) / double(denom);
 	}
-	progress(int _num, int _denom, int startT) {
-		num = _num;
-		denom = _denom;
+	progress(int _num, int _denom, int startT) : num(_num), denom(_denom) {
 		completion = double(num) / double(denom);
 		dtime = time(0) - startT;
 	}

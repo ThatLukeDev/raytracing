@@ -2,15 +2,18 @@
 #define randomDistribution_h
 #include <climits>
 
-class randomDistribution {public:
+class randomDistribution {
+private:
+	int val_m = seed;
+public:
 	int seed = 1;
 
 	randomDistribution() { }
-	randomDistribution(int _seed) { seed = _seed; _val = _seed; }
+	randomDistribution(int _seed) : seed(_seed), val_m(_seed) { }
 
 	int randInt() {
-		_val = _val * 1408497475 + 8741751;
-		return _val;
+		val_m = val_m * 1408497475 + 8741751;
+		return val_m;
 	}
 	int randUint() {
 		return abs(randInt());
@@ -32,7 +35,5 @@ class randomDistribution {public:
 	double randN() {
 		return randDouble(true);
 	}
-private:
-	int _val = seed;
 };
 #endif

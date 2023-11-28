@@ -11,8 +11,10 @@ struct vector2 {
 	double Y = 0;
 
 	vector2() { } 
-	vector2(int _X, int _Y) { X = double(_X); Y = double(_Y); }
-	vector2(double _X, double _Y) { X = _X; Y = _Y; }
+	vector2(int& _X, int& _Y) : X(double(_X)), Y(double(_Y)) { }
+	vector2(double& _X, double& _Y) : X(_X), Y(_Y) { }
+	vector2(int&& _X, int&& _Y) : X(double(_X)), Y(double(_Y)) { }
+	vector2(double&& _X, double&& _Y) : X(_X), Y(_Y) { }
 
 	double length_squared() {
 		return X*X + Y*Y;

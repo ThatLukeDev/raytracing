@@ -11,8 +11,10 @@ struct pixel {
 	int B = 0;
 
 	pixel() {}
-	pixel(double dR, double dG, double dB) { R = int(dR * 255); G = int(dG * 255); B = int(dB * 255); }
-	pixel(int dR, int dG, int dB) { R = dR; G = dG; B = dB; }
+	pixel(double& _R, double& _G, double& _B) : R(int(_R * 255)), G(int(_G * 255)), B(int(_B * 255)) { }
+	pixel(double&& _R, double&& _G, double&& _B) : R(int(_R * 255)), G(int(_G * 255)), B(int(_B * 255)) { }
+	pixel(int& _R, int& _G, int& _B) : R(_R), G(_G), B(_B) { }
+	pixel(int&& _R, int&& _G, int&& _B) : R(_R), G(_G), B(_B) { }
 
 	char* toByte3() {
 		static char pixel[3];
