@@ -62,6 +62,30 @@ struct vector3 {
 	void operator =(const vector3& v) {
 		memcpy(this, &v, sizeof(vector3));
 	}
+	vector3 operator +(const vector3&& v) {
+		return vector3(X + v.X, Y + v.Y, Z + v.Z);
+	}
+	vector3 operator -(const vector3&& v) {
+		return vector3(X - v.X, Y - v.Y, Z - v.Z);
+	}
+	vector3 operator *(const vector3&& v) {
+		return vector3(X * v.X, Y * v.Y, Z * v.Z);
+	}
+	vector3 operator /(const vector3&& v) {
+		return vector3(X / v.X, Y / v.Y, Z / v.Z);
+	}
+	vector3 operator +(double&& a) {
+		return vector3(X + a, Y + a, Z + a);
+	}
+	vector3 operator -(double&& a) {
+		return vector3(X - a, Y - a, Z - a);
+	}
+	vector3 operator *(double&& a) {
+		return vector3(X * a, Y * a, Z * a);
+	}
+	vector3 operator /(double&& a) {
+		return vector3(X / a, Y / a, Z / a);
+	}
 };
 double dot(vector3& a, vector3& v) {
 	return a.X * v.X + a.Y * v.Y + a.Z * v.Z;
