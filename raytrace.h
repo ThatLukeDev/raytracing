@@ -12,7 +12,7 @@ color traceColor(ray& r, int bounces, int maxBounces, color environment, double 
 	sphere* objectAtSmallest = nullptr;
 	for (int i = 0; i < objectsLength; i++) {
 		double intersectD = objects[i].intersectsAlong(r);
-		if (intersectD > 0) {
+		if (intersectD > 0.01) {
 			if (intersectD < intersectDsmallest) {
 				intersectDsmallest = intersectD;
 				objectAtSmallest = &objects[i];
@@ -25,7 +25,7 @@ color traceColor(ray& r, int bounces, int maxBounces, color environment, double 
 		vector3 intersect = r.at(intersectDsmallest);
 		vector3 normal = (intersect - objectAtSmallest->position).unit();
 		vector3 randVector = vector3(rnd.randN(), rnd.randN(), rnd.randN()).unit();
-		ray bounce = ray(intersect, r.direction).reflect(normal, randVector);
+		ray bounce = ray(intersect, r.direction).reflect(normal, randVector, 1 - objectAtSmallest->reflectance);
 
 		output = objectAtSmallest->shade;
 		double multiplier = objectAtSmallest->emission;

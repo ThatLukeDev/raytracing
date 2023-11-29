@@ -15,12 +15,15 @@ struct ray {
 	}
 
 	ray reflect(vector3& normal) {
-		ray reflected = ray(origin, normal);
+		ray reflected = ray(origin, direction - (normal * (2 * dot(direction, normal))));
 		return reflected;
 	}
 	ray reflect(vector3& normal, vector3& fuzz) {
+		return reflect(normal, fuzz, 1.0);
+	}
+	ray reflect(vector3& normal, vector3& fuzzVector, double fuzz) {
 		ray reflected = reflect(normal);
-		reflected.direction = (reflected.direction + fuzz).unit();
+		reflected.direction = (reflected.direction + (fuzzVector * fuzz)).unit();
 		return reflected;
 	}
 };
