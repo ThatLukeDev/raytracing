@@ -35,14 +35,14 @@ struct pixel {
 		return pixel(rnd.randN(), rnd.randN(), rnd.randN());
 	}
 
-	pixel operator +(const pixel& v) { return pixel(R + v.R, G + v.G, B + v.B); }
-	pixel operator -(const pixel& v) { return pixel(R - v.R, G - v.G, B - v.B); }
-	pixel operator *(const pixel& v) { return pixel(R * v.R, G * v.G, B * v.B); }
-	pixel operator /(const pixel& v) { return pixel(R / v.R, G / v.G, B / v.B); }
-	pixel operator +(double& a) { return pixel(R + a, G + a, B + a); }
-	pixel operator -(double& a) { return pixel(R - a, G - a, B - a); }
-	pixel operator *(double& a) { return pixel(R * a, G * a, B * a); }
-	pixel operator /(double& a) { return pixel(R / a, G / a, B / a); }
+	pixel operator +(const pixel& v) { return pixel(int(R + v.R), int(G + v.G), int(B + v.B)); }
+	pixel operator -(const pixel& v) { return pixel(int(R - v.R), int(G - v.G), int(B - v.B)); }
+	pixel operator *(const pixel& v) { return pixel(int(R * v.R), int(G * v.G), int(B * v.B)); }
+	pixel operator /(const pixel& v) { return pixel(int(R / v.R), int(G / v.G), int(B / v.B)); }
+	pixel operator +(double& a) { return pixel(int(R + a), int(G + a), int(B + a)); }
+	pixel operator -(double& a) { return pixel(int(R - a), int(G - a), int(B - a)); }
+	pixel operator *(double& a) { return pixel(int(R * a), int(G * a), int(B * a)); }
+	pixel operator /(double& a) { return pixel(int(R / a), int(G / a), int(B / a)); }
 	void operator =(const pixel& v) { memcpy(this, &v, sizeof(pixel)); }
 };
 inline ostream& operator <<(ostream& out, pixel p) {
