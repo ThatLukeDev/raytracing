@@ -5,20 +5,15 @@
 #include "vector3.h"
 #include "pixel.h"
 #include "ray.h"
+#include "object.h"
 
-struct sphere {
-	vector3 position = vector3();
+struct sphere : object {
 	double radius = 0;
-	color shade = color();
-	double emission = 0;
-	double reflectance = 0;
-
-	sphere() {}
-	sphere(vector3 _position, double _radius) : position(_position), radius(_radius) { }
-	sphere(double _x, double _y, double _z, double _radius) : position(vector3(_x, _y, _z)), radius(_radius) { }
-	sphere(vector3 _position, double _radius, color _shade) : position(_position), radius(_radius), shade(_shade) { }
-	sphere(vector3 _position, double _radius, color _shade, double _emission) : position(_position), radius(_radius), shade(_shade), emission(_emission) { }
-	sphere(vector3 _position, double _radius, color _shade, double _emission, double _reflectance) : position(_position), radius(_radius), shade(_shade), emission(_emission), reflectance(_reflectance) { }
+	sphere() : object(vector3(), color(), 0.0, 0.0, 0.0) { }
+	sphere(vector3 _position, double _radius) : object(_position, color(), 0.0, 0.0, 0.0), radius(_radius) { }
+	sphere(vector3 _position, double _radius, color _shade) : object(_position, _shade, 0.0, 0.0, 0.0), radius(_radius) { }
+	sphere(vector3 _position, double _radius, color _shade, double _emission, double _reflectance, double _transparency)
+	: object(_position, _shade, _emission, _reflectance, _transparency), radius(_radius) { }
 
 	double intersectsAlong(ray r) {
 		vector3 SminusO = r.origin - position;
@@ -30,12 +25,6 @@ struct sphere {
 			return -1;
 		else
 			return (-b - sqrt(underRoot)) / 2*a;
-	}
-	bool intersects(ray r) {
-		if (intersectsAlong(r) != -1) {
-			return true;
-		}
-		return false;
 	}
 };
 #endif

@@ -17,6 +17,7 @@ const double pi = 3.141592653589793238463;
 #include "vector3.h"
 #include "vector2.h"
 #include "ray.h"
+#include "object.h"
 #include "sphere.h"
 #include "config.cc"
 #include "raytrace.h"
