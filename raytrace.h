@@ -10,18 +10,18 @@ color traceColor(ray& r, int bounces, int maxBounces, color environment, double 
 		return color(0, 0, 0);
 
 	double intersectDsmallest = 2147483647;
-	sphere* objectAtSmallest = nullptr;
+	sphere* closestObject = nullptr;
 	for (int i = 0; i < objectsLength; i++) {
 		double intersectD = objects[i].intersectsAlong(r);
 		if (intersectD > 0.0) {
 			if (intersectD < intersectDsmallest) {
 				intersectDsmallest = intersectD;
-				objectAtSmallest = &objects[i];
+				closestObject = &objects[i];
 			}
 		}
 	}
 
-	if (objectAtSmallest == nullptr)
+	if (closestObject == nullptr)
 		return environment;
 	if (intersectDsmallest < 0.01)
 		return color(0, 0, 0);
@@ -29,15 +29,17 @@ color traceColor(ray& r, int bounces, int maxBounces, color environment, double 
 	color output = color();
 
 	vector3 intersect = r.at(intersectDsmallest);
-	vector3 normal = (intersect - objectAtSmallest->position).unit();
+	vector3 normal = (intersect - closestObject->position).unit();
 	vector3 randVector = vector3(rnd.randN(), rnd.randN(), rnd.randN()).unit();
-	ray bounce = ray(intersect, r.direction).reflect(normal, randVector, 1 - objectAtSmallest->reflectance);
+	ray bounce = ray(intersect, r.direction).reflect(normal, randVector, 1 - closestObject->reflectance);
 
-	output = objectAtSmallest->shade * objectAtSmallest->emission;
 	color bounceOutput = traceColor(bounce, bounces + 1, maxBounces, environment, falloff, rnd);
-	output.R *= (bounceOutput.R / 255.999) + 1.0;
-	output.G *= (bounceOutput.G / 255.999) + 1.0;
-	output.B *= (bounceOutput.B / 255.999) + 1.0;
+	double refl = closestObject->reflectance;
+	double inverserefl = 1.0 - closestObject->reflectance;
+	output = closestObject->shade * closestObject->emission * inverserefl + bounceOutput * refl;
+	output.R *= (bounceOutput.R * inverserefl / 255.999) + 1.0;
+	output.G *= (bounceOutput.G * inverserefl / 255.999) + 1.0;
+	output.B *= (bounceOutput.B * inverserefl / 255.999) + 1.0;
 
 	return output;
 }
