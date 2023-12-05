@@ -29,29 +29,29 @@ static class viewportC : cameraC {public:
 double colorClampMin = 16;
 double colorClampMax = 240;
 
-vector<sphere> objects {
-	sphere(
+vector<shared_ptr<object>> objects {
+	make_shared<sphere>(sphere(
 		vector3(0,-1,3),1,
 		color(200,200,200),0.5,0.9,0.0
-	),
-        sphere(
+	)),
+        make_shared<sphere>(sphere(
 		vector3(0,-102,3),100,
 		color(35,140,35),0.5,0.0,0.0
-	),
-        sphere(
+	)),
+        make_shared<sphere>(sphere(
 		vector3(3,4,3),2,
 		color(235,215,55),10.0,0.0,0.0
-	),
+	)),
 };
 int objectsLength = objects.size();
 
 void clampColor() {
 	for (int i = 0; i < objectsLength; i++) {
-		if (objects[i].shade.R < colorClampMin) objects[i].shade.R = colorClampMin;
-		if (objects[i].shade.R > colorClampMax) objects[i].shade.R = colorClampMax;
-		if (objects[i].shade.G < colorClampMin) objects[i].shade.G = colorClampMin;
-		if (objects[i].shade.G > colorClampMax) objects[i].shade.G = colorClampMax;
-		if (objects[i].shade.B < colorClampMin) objects[i].shade.B = colorClampMin;
-		if (objects[i].shade.B > colorClampMax) objects[i].shade.B = colorClampMax;
+		if (objects[i]->shade.R < colorClampMin) objects[i]->shade.R = colorClampMin;
+		if (objects[i]->shade.R > colorClampMax) objects[i]->shade.R = colorClampMax;
+		if (objects[i]->shade.G < colorClampMin) objects[i]->shade.G = colorClampMin;
+		if (objects[i]->shade.G > colorClampMax) objects[i]->shade.G = colorClampMax;
+		if (objects[i]->shade.B < colorClampMin) objects[i]->shade.B = colorClampMin;
+		if (objects[i]->shade.B > colorClampMax) objects[i]->shade.B = colorClampMax;
 	}
 }

@@ -6,6 +6,7 @@
 #include <cstring>
 #include <vector>
 #include <mutex>
+#include <memory>
 
 using namespace std;
 const double pi = 3.141592653589793238463;

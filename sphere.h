@@ -7,7 +7,7 @@
 #include "ray.h"
 #include "object.h"
 
-struct sphere : object {
+struct sphere : public object {
 	double radius = 0;
 	sphere() : object(vector3(), color(), 0.0, 0.0, 0.0) { }
 	sphere(vector3 _position, double _radius) : object(_position, color(), 0.0, 0.0, 0.0), radius(_radius) { }
@@ -25,6 +25,9 @@ struct sphere : object {
 			return -1;
 		else
 			return (-b - sqrt(underRoot)) / 2*a;
+	}
+	vector3 normalAt(vector3 pos) {
+		return (pos - position).unit();
 	}
 };
 #endif

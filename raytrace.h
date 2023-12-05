@@ -9,27 +9,27 @@ color traceColor(ray& r, int bounces, int maxBounces, color environment, double 
 	if (bounces > maxBounces)
 		return color(0, 0, 0);
 
-	double intersectDsmallest = 2147483647;
-	sphere* closestObject = nullptr;
+	double closestRay = 2147483647;
+	shared_ptr<object> closestObject = nullptr;
 	for (int i = 0; i < objectsLength; i++) {
-		double intersectD = objects[i].intersectsAlong(r);
+		double intersectD = objects[i]->intersectsAlong(r);
 		if (intersectD > 0.0) {
-			if (intersectD < intersectDsmallest) {
-				intersectDsmallest = intersectD;
-				closestObject = &objects[i];
+			if (intersectD < closestRay) {
+				closestRay = intersectD;
+				closestObject = objects[i];
 			}
 		}
 	}
 
 	if (closestObject == nullptr)
 		return environment;
-	if (intersectDsmallest < 0.01)
+	if (closestRay < 0.01)
 		return color(0, 0, 0);
 
 	color output = color();
 
-	vector3 intersect = r.at(intersectDsmallest);
-	vector3 normal = (intersect - closestObject->position).unit();
+	vector3 intersect = r.at(closestRay);
+	vector3 normal = closestObject->normalAt(intersect);
 	vector3 randVector = vector3(rnd.randN(), rnd.randN(), rnd.randN()).unit();
 	ray bounce = ray(intersect, r.direction).reflect(normal, randVector, 1 - closestObject->reflectance);
 
