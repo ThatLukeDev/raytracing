@@ -31,7 +31,7 @@ color traceColor(ray& r, int bounces, int maxBounces, color environment, double 
 	vector3 intersect = r.at(closestRay);
 	vector3 normal = closestObject->normalAt(intersect);
 	vector3 randVector = vector3(rnd.randN(), rnd.randN(), rnd.randN()).unit();
-	ray bounce = ray(intersect, r.direction).reflect(normal, randVector, 1 - closestObject->reflectance);
+	ray bounce = ray(intersect, r.direction).reflect(normal, randVector, 1 - closestObject->fuzz);
 
 	color bounceOutput = traceColor(bounce, bounces + 1, maxBounces, environment, falloff, rnd);
 	double refl = closestObject->reflectance;
