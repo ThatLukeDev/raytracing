@@ -47,11 +47,11 @@ int objectsLength = objects.size();
 
 void clampColor() {
 	for (int i = 0; i < objectsLength; i++) {
-		if (objects[i]->shade.R < colorClampMin) objects[i]->shade.R = colorClampMin;
-		if (objects[i]->shade.R > colorClampMax) objects[i]->shade.R = colorClampMax;
-		if (objects[i]->shade.G < colorClampMin) objects[i]->shade.G = colorClampMin;
-		if (objects[i]->shade.G > colorClampMax) objects[i]->shade.G = colorClampMax;
-		if (objects[i]->shade.B < colorClampMin) objects[i]->shade.B = colorClampMin;
-		if (objects[i]->shade.B > colorClampMax) objects[i]->shade.B = colorClampMax;
+		if (objects[i]->texture.shade.R < colorClampMin) objects[i]->texture.shade.R = colorClampMin;
+		if (objects[i]->texture.shade.R > colorClampMax) objects[i]->texture.shade.R = colorClampMax;
+		if (objects[i]->texture.shade.G < colorClampMin) objects[i]->texture.shade.G = colorClampMin;
+		if (objects[i]->texture.shade.G > colorClampMax) objects[i]->texture.shade.G = colorClampMax;
+		if (objects[i]->texture.shade.B < colorClampMin) objects[i]->texture.shade.B = colorClampMin;
+		if (objects[i]->texture.shade.B > colorClampMax) objects[i]->texture.shade.B = colorClampMax;
 	}
 }

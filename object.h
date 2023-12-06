@@ -2,19 +2,16 @@
 #define object_h
 
 #include "vector3.h"
+#include "shader.h"
 
 class object {
 public:
 	vector3 position = vector3();
-	color shade = color();
-	double emission = 0.0;
-	double reflectance = 0.0;
-	double fuzz = 0.0;
-	double transparency = 0.0;
+	shader texture = shader();
 
 	object() { }
 	object(vector3 _position, color _color, double _emission, double _reflectance, double _fuzz, double _transparency)
-	: position(_position), shade(_color), emission(_emission), reflectance(_reflectance), fuzz(_fuzz), transparency(_transparency) { }
+	: position(_position), texture(_color, _emission, _reflectance, _fuzz, _transparency) { }
 
 	virtual double intersectsAlong(ray r) = 0;
 	virtual vector3 normalAt(vector3 pos) = 0;
