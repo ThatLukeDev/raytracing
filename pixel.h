@@ -11,10 +11,9 @@ struct pixel {
 	int B = 0;
 
 	pixel() {}
-	pixel(double& _R, double& _G, double& _B) : R(int(_R * 255)), G(int(_G * 255)), B(int(_B * 255)) { }
-	pixel(double&& _R, double&& _G, double&& _B) : R(int(_R * 255)), G(int(_G * 255)), B(int(_B * 255)) { }
-	pixel(int& _R, int& _G, int& _B) : R(_R), G(_G), B(_B) { }
-	pixel(int&& _R, int&& _G, int&& _B) : R(_R), G(_G), B(_B) { }
+	template <typename T>
+	pixel(T _R, T _G, T _B) : R(int(_R * 255)), G(int(_G * 255)), B(int(_B * 255)) { }
+	pixel(int _R, int _G, int _B) : R(_R), G(_G), B(_B) { }
 
 	char* toByte3() {
 		static char pixel[3];
@@ -35,17 +34,21 @@ struct pixel {
 		return pixel(rnd.randN(), rnd.randN(), rnd.randN());
 	}
 
-	pixel operator +(const pixel& v) { return pixel(int(R + v.R), int(G + v.G), int(B + v.B)); }
-	pixel operator -(const pixel& v) { return pixel(int(R - v.R), int(G - v.G), int(B - v.B)); }
-	pixel operator *(const pixel& v) { return pixel(int(R * v.R), int(G * v.G), int(B * v.B)); }
-	pixel operator /(const pixel& v) { return pixel(int(R / v.R), int(G / v.G), int(B / v.B)); }
-	pixel operator +(double& a) { return pixel(int(R + a), int(G + a), int(B + a)); }
-	pixel operator -(double& a) { return pixel(int(R - a), int(G - a), int(B - a)); }
-	pixel operator *(double& a) { return pixel(int(R * a), int(G * a), int(B * a)); }
-	pixel operator /(double& a) { return pixel(int(R / a), int(G / a), int(B / a)); }
-	void operator =(const pixel& v) { memcpy(this, &v, sizeof(pixel)); }
+	pixel operator+(const pixel v) { return pixel(int(R + v.R), int(G + v.G), int(B + v.B)); }
+	pixel operator-(const pixel v) { return pixel(int(R - v.R), int(G - v.G), int(B - v.B)); }
+	pixel operator*(const pixel v) { return pixel(int(R * v.R), int(G * v.G), int(B * v.B)); }
+	pixel operator/(const pixel v) { return pixel(int(R / v.R), int(G / v.G), int(B / v.B)); }
+	template <typename T>
+	pixel operator+(T a) { return pixel(int(R + a), int(G + a), int(B + a)); }
+	template <typename T>
+	pixel operator-(T a) { return pixel(int(R - a), int(G - a), int(B - a)); }
+	template <typename T>
+	pixel operator*(T a) { return pixel(int(R * a), int(G * a), int(B * a)); }
+	template <typename T>
+	pixel operator/(T a) { return pixel(int(R / a), int(G / a), int(B / a)); }
+	void operator=(const pixel& v) { memcpy(this, &v, sizeof(*this)); }
 };
-inline ostream& operator <<(ostream& out, pixel p) {
+inline ostream& operator<<(ostream& out, pixel p) {
 	return out << "(" << p.R << "," << p.G << "," << p.B << ")";
 }
 

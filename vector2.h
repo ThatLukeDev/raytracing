@@ -11,10 +11,8 @@ struct vector2 {
 	double Y = 0;
 
 	vector2() { } 
-	vector2(int& _X, int& _Y) : X(double(_X)), Y(double(_Y)) { }
-	vector2(double& _X, double& _Y) : X(_X), Y(_Y) { }
-	vector2(int&& _X, int&& _Y) : X(double(_X)), Y(double(_Y)) { }
-	vector2(double&& _X, double&& _Y) : X(_X), Y(_Y) { }
+	template <typename T>
+	vector2(T _X, T _Y) : X(double(_X)), Y(double(_Y)) { }
 
 	double length_squared() {
 		return X*X + Y*Y;
@@ -32,38 +30,47 @@ struct vector2 {
 		randomDistribution rnd = randomDistribution(time(0));
 		return vector2(rnd.randN(), rnd.randN());
 	}
-	vector2 operator +(const vector2& v) {
+	vector2 operator+(vector2 v) {
 		return vector2(X + v.X, Y + v.Y);
 	}
-	vector2 operator -(const vector2& v) {
+	vector2 operator-(vector2 v) {
 		return vector2(X - v.X, Y - v.Y);
 	}
-	vector2 operator *(const vector2& v) {
+	vector2 operator*(vector2 v) {
 		return vector2(X * v.X, Y * v.Y);
 	}
-	vector2 operator /(const vector2& v) {
+	vector2 operator/(vector2 v) {
 		return vector2(X / v.X, Y / v.Y);
 	}
-	inline vector2 operator +(double& a) {
+	template <typename T>
+	vector2 operator+(T a) {
 		return vector2(X + a, Y + a);
 	}
-	inline vector2 operator -(double& a) {
+	template <typename T>
+	vector2 operator-(T a) {
 		return vector2(X - a, Y - a);
 	}
-	inline vector2 operator *(double& a) {
+	template <typename T>
+	vector2 operator*(T a) {
 		return vector2(X * a, Y * a);
 	}
-	inline vector2 operator /(double& a) {
+	template <typename T>
+	vector2 operator/(T a) {
 		return vector2(X / a, Y / a);
 	}
-	void operator =(const vector2& v) {
+	template <typename T>
+	void operator=(T _X) {
+		X = _X;
+		Y = _X;
+	}
+	void operator=(const vector2& v) {
 		memcpy(this, &v, sizeof(vector2));
 	}
 };      
-double dot(vector2& a, vector2& v) {
+double dot(vector2 a, vector2 v) {
 	return a.X * v.X + a.Y * v.Y;
 }
-inline ostream& operator <<(ostream& out, vector2 v) {
+inline ostream& operator<<(ostream& out, vector2 v) {
 	return out << "(" << v.X << "," << v.Y << ")";
 }
 #endif
