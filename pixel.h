@@ -33,8 +33,16 @@ struct pixel {
 		randomDistribution rnd = randomDistribution(time(0));
 		return pixel(rnd.randN(), rnd.randN(), rnd.randN());
 	}
+	pixel clamp(pixel min, pixel max) {
+		if (R < min.R) R = min.R;
+		if (R > max.R) R = max.R;
+		if (G < min.G) G = min.G;
+		if (G > max.G) G = max.G;
+		if (B < min.B) B = min.B;
+		if (B > max.B) B = max.B;
+		return *this;
+	}
 	pixel clamp(int min, int max) {
-		pixel _return = *this;
 		if (R < min) R = min;
 		if (R > max) R = max;
 		if (G < min) G = min;
