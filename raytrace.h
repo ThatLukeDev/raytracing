@@ -47,14 +47,10 @@ color traceColor(ray& r, int samples, double maxD, int maxBounces, color environ
 		ray sampleRay = r;
 		sampleRay.direction = (r.direction + vector3(rnd.randN() * maxD, rnd.randN() * maxD, rnd.randN() * maxD)).unit();
 		color sample = traceColor(sampleRay, maxBounces, environment, falloff, rnd);
-		output = output + sample;
+		output += sample;
 	}
-	output.R /= samples;
-	output.G /= samples;
-	output.B /= samples;
-	if (output.R > 255) output.R = 255;
-	if (output.G > 255) output.G = 255;
-	if (output.B > 255) output.B = 255;
+	output /= samples;
+	output.clamp();
 	return output;
 }
 #endif

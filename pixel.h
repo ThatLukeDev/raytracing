@@ -33,11 +33,24 @@ struct pixel {
 		randomDistribution rnd = randomDistribution(time(0));
 		return pixel(rnd.randN(), rnd.randN(), rnd.randN());
 	}
+	pixel clamp(int min, int max) {
+		pixel _return = *this;
+		if (R < min) R = min;
+		if (R > max) R = max;
+		if (G < min) G = min;
+		if (G > max) G = max;
+		if (B < min) B = min;
+		if (B > max) B = max;
+		return *this;
+	}
+	pixel clamp() {
+		return clamp(0, 255);
+	}
 
-	pixel operator+(const pixel v) { return pixel(int(R + v.R), int(G + v.G), int(B + v.B)); }
-	pixel operator-(const pixel v) { return pixel(int(R - v.R), int(G - v.G), int(B - v.B)); }
-	pixel operator*(const pixel v) { return pixel(int(R * v.R), int(G * v.G), int(B * v.B)); }
-	pixel operator/(const pixel v) { return pixel(int(R / v.R), int(G / v.G), int(B / v.B)); }
+	pixel operator+(pixel v) { return pixel(int(R + v.R), int(G + v.G), int(B + v.B)); }
+	pixel operator-(pixel v) { return pixel(int(R - v.R), int(G - v.G), int(B - v.B)); }
+	pixel operator*(pixel v) { return pixel(int(R * v.R), int(G * v.G), int(B * v.B)); }
+	pixel operator/(pixel v) { return pixel(int(R / v.R), int(G / v.G), int(B / v.B)); }
 	template <typename T>
 	pixel operator+(T a) { return pixel(int(R + a), int(G + a), int(B + a)); }
 	template <typename T>
@@ -46,7 +59,21 @@ struct pixel {
 	pixel operator*(T a) { return pixel(int(R * a), int(G * a), int(B * a)); }
 	template <typename T>
 	pixel operator/(T a) { return pixel(int(R / a), int(G / a), int(B / a)); }
-	void operator=(const pixel& v) { memcpy(this, &v, sizeof(*this)); }
+
+	void operator+=(pixel v) { R += v.R; G += v.G; B += v.B; }
+	void operator-=(pixel v) { R -= v.R; G -= v.G; B -= v.B; }
+	void operator*=(pixel v) { R *= v.R; G *= v.G; B *= v.B; }
+	void operator/=(pixel v) { R /= v.R; G /= v.G; B /= v.B; }
+	template <typename T>
+	void operator+=(T a) { R += a; G += a; B += a; }
+	template <typename T>
+	void operator-=(T a) { R -= a; G -= a; B -= a; }
+	template <typename T>
+	void operator*=(T a) { R *= a; G *= a; B *= a; }
+	template <typename T>
+	void operator/=(T a) { R /= a; G /= a; B /= a; }
+
+	void operator=(pixel& v) { memcpy(this, &v, sizeof(*this)); }
 };
 inline ostream& operator<<(ostream& out, pixel p) {
 	return out << "(" << p.R << "," << p.G << "," << p.B << ")";
