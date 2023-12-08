@@ -27,7 +27,7 @@ static class viewportC : cameraC {public:
 static class environmentC : viewportC {
 public:
 	color getPixel(ray r) {
-		return color(0.75 - r.direction.Y, 0.75 - r.direction.Y, 1.0).clamp(128,255);
+		return color(1.0 - r.direction.Y, 1.0 - r.direction.Y, 1.0).clamp(color(128,128,192), color(255,255,255));
 		// color(65,135,245);
 	}
 } environment;
@@ -41,7 +41,7 @@ vector<shared_ptr<object>> objects {
 		color(200,200,200),0.5,0.9,0.5,0.0
 	)),
         make_shared<sphere>(sphere(
-		vector3(0,-102,3),100,
+		vector3(0,-1002,3),1000,
 		color(35,140,35),0.5,0.0,0.0,0.0
 	)),
         make_shared<sphere>(sphere(
