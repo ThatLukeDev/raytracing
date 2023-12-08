@@ -12,6 +12,18 @@ public:
 	shader() { }
 	shader(color _color, double _emission, double _reflectance, double _fuzz, double _transparency)
 	: shade(_color), emission(_emission), reflectance(_reflectance), fuzz(_fuzz), transparency(_transparency) { }
+
+	virtual color getPixel(color _influence) {
+		double refl = reflectance;
+		double inverserefl = 1.0 - reflectance;
+
+		color output = shade * emission * inverserefl + _influence * refl;
+		output.R *= (_influence.R * inverserefl / 255.999) + 1.0;
+		output.G *= (_influence.G * inverserefl / 255.999) + 1.0;
+		output.B *= (_influence.B * inverserefl / 255.999) + 1.0;
+
+		return output;
+	}
 };
 
 #endif
