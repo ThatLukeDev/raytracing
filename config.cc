@@ -22,9 +22,15 @@ static class viewportC : cameraC {public:
 	int samples = 1000;
 	double flux = 0.001;
 	const int maxBounces = 4;
-	color environment = color(65,135,245);
 	double lightFalloff = 0.0;
 } viewport;
+static class environmentC : viewportC {
+public:
+	color getPixel(ray r) {
+		return color(0.75 - r.direction.Y, 0.75 - r.direction.Y, 1.0).clamp(128,255);
+		// color(65,135,245);
+	}
+} environment;
 
 double colorClampMin = 16;
 double colorClampMax = 240;

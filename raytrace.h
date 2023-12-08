@@ -5,7 +5,7 @@
 #include "pixel.h"
 #include "vector3.h"
 
-color traceColor(ray& r, int bounces, int maxBounces, color environment, double falloff, randomDistribution& rnd) {
+color traceColor(ray& r, int bounces, int maxBounces, environmentC environment, double falloff, randomDistribution& rnd) {
 	if (bounces > maxBounces)
 		return color(0, 0, 0);
 
@@ -22,7 +22,7 @@ color traceColor(ray& r, int bounces, int maxBounces, color environment, double 
 	}
 
 	if (closestObject == nullptr)
-		return environment;
+		return environment.getPixel(r);
 	if (closestRay < 0.01)
 		return color(0, 0, 0);
 
@@ -37,11 +37,11 @@ color traceColor(ray& r, int bounces, int maxBounces, color environment, double 
 	return output;
 }
 
-color traceColor(ray& r, int maxBounces, color environment, double falloff, randomDistribution& rnd) {
+color traceColor(ray& r, int maxBounces, environmentC environment, double falloff, randomDistribution& rnd) {
 	return traceColor(r, 0, maxBounces, environment, falloff, rnd);
 }
 
-color traceColor(ray& r, int samples, double maxD, int maxBounces, color environment, double falloff, randomDistribution& rnd) {
+color traceColor(ray& r, int samples, double maxD, int maxBounces, environmentC environment, double falloff, randomDistribution& rnd) {
 	color output = color();
 	for (int i = 0; i < samples; i++) {
 		ray sampleRay = r;

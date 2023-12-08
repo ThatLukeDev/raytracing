@@ -60,7 +60,7 @@ int main() {
 			ray r = ray(camera.position, viewportLocation - camera.position);
 
 			color outPixel = traceColor(
-				r, viewport.samples, viewport.flux, viewport.maxBounces, viewport.environment, viewport.lightFalloff, rnd
+				r, viewport.samples, viewport.flux, viewport.maxBounces, environment, viewport.lightFalloff, rnd
 			);
 			char* outByte3 = (char*)malloc(3);
 			outByte3[0] = outPixel.R;
