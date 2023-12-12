@@ -7,6 +7,7 @@ public:
 	double emission = 0.0;
 	double reflectance = 0.0;
 	double fuzz = 0.0;
+	double ior = 1.0;
 	double transparency = 0.0;
 
 	shader() { }

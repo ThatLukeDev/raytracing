@@ -14,17 +14,26 @@ struct ray {
 		return origin + direction * distance;
 	}
 
+	ray fuzz(vector3 fuzzVector, double _fuzz) {
+		ray r = *this;
+		r.direction = (r.direction + (fuzzVector * _fuzz)).unit();
+		return r;
+	}
+	ray fuzz(vector3 _fuzz) {
+		return fuzz(_fuzz, 1.0);
+	}
+
 	ray reflect(vector3 normal) {
 		ray reflected = ray(origin, direction - (normal * (2 * dot(direction, normal))));
 		return reflected;
 	}
-	ray reflect(vector3 normal, vector3 fuzz) {
-		return reflect(normal, fuzz, 1.0);
-	}
-	ray reflect(vector3 normal, vector3 fuzzVector, double fuzz) {
-		ray reflected = reflect(normal);
-		reflected.direction = (reflected.direction + (fuzzVector * fuzz)).unit();
-		return reflected;
+
+	ray refract(vector3 normal, double ior) {
+		double cos = dot(direction * -1, normal);
+		if (cos < 1.0) cos = 1.0;
+		vector3 perpendicular =  (direction + normal * cos) * ior;
+		vector3 parallel = normal * -sqrt(fabs(1.0 - perpendicular.length_squared()));
+		return ray(origin, perpendicular + parallel);
 	}
 };
 inline ostream& operator <<(ostream& out, ray& r) {
