@@ -11,8 +11,8 @@ public:
 	double transparency = 0.0;
 
 	shader() { }
-	shader(color _color, double _emission, double _reflectance, double _fuzz, double _transparency)
-	: shade(_color), emission(_emission), reflectance(_reflectance), fuzz(_fuzz), transparency(_transparency) { }
+	shader(color _color, double _emission, double _reflectance, double _fuzz, double _transparency, double _ior)
+	: shade(_color), emission(_emission), reflectance(_reflectance), fuzz(_fuzz), transparency(_transparency), ior(_ior) { }
 
 	virtual color getPixel(color _influence) {
 		double refl = reflectance;

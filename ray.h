@@ -33,7 +33,7 @@ struct ray {
 		if (cos < 1.0) cos = 1.0;
 		vector3 perpendicular =  (direction + normal * cos) * ior;
 		vector3 parallel = normal * -sqrt(fabs(1.0 - perpendicular.length_squared()));
-		return ray(origin, perpendicular + parallel);
+		return ray(origin, (perpendicular + parallel).unit());
 	}
 };
 inline ostream& operator <<(ostream& out, ray& r) {

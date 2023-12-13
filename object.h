@@ -10,8 +10,8 @@ public:
 	shader texture = shader();
 
 	object() { }
-	object(vector3 _position, color _color, double _emission, double _reflectance, double _fuzz, double _transparency)
-	: position(_position), texture(_color, _emission, _reflectance, _fuzz, _transparency) { }
+	object(vector3 _position, color _color, double _emission, double _reflectance, double _fuzz, double _transparency, double _ior)
+	: position(_position), texture(_color, _emission, _reflectance, _fuzz, _transparency, _ior) { }
 
 	virtual double intersectsAlong(ray r) = 0;
 	virtual vector3 normalAt(vector3 pos) = 0;
