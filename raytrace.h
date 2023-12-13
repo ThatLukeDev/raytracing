@@ -9,34 +9,34 @@ color traceColor(ray& r, int bounces, int maxBounces, environmentC environment, 
 	if (bounces > maxBounces)
 		return color(0, 0, 0);
 
-	double closestRay = 2147483647;
-	shared_ptr<object> closestObject = nullptr;
+	double objDis = 2147483647;
+	shared_ptr<object> obj = nullptr;
 	for (int i = 0; i < objectsLength; i++) {
 		double intersectD = objects[i]->intersectsAlong(r);
 		if (intersectD > 0.0 && &(*objects[i]) != ignore) {
-			if (intersectD < closestRay) {
-				closestRay = intersectD;
-				closestObject = objects[i];
+			if (intersectD < objDis) {
+				objDis = intersectD;
+				obj = objects[i];
 			}
 		}
 	}
 
-	if (closestObject == nullptr)
+	if (obj == nullptr)
 		return environment.getPixel(r);
-	if (closestRay < 0.01)
+	if (objDis < 0.01)
 		return color(0, 0, 0);
 
-	vector3 intersect = r.at(closestRay);
-	vector3 normal = closestObject->normalAt(intersect);
+	vector3 intersect = r.at(objDis);
+	vector3 normal = obj->normalAt(intersect);
 	vector3 randVector = vector3(rnd.randN(), rnd.randN(), rnd.randN()).unit();
 	ray bounce = ray(intersect, r.direction);
 	object* nextIgnore = nullptr;
-	if (rnd.randDouble() < closestObject->texture.transparency) { bounce = bounce.refract(normal, closestObject->texture.ior); }
-	else { bounce = bounce.reflect(normal); nextIgnore = &(*closestObject); }
-	bounce = bounce.fuzz(randVector, 1 - closestObject->texture.fuzz);
+	if (rnd.randDouble() < obj->texture.transparency) { bounce = bounce.refract(normal, obj->texture.ior); nextIgnore = &(*obj); }
+	else { bounce = bounce.reflect(normal); }
+	bounce = bounce.fuzz(randVector, 1 - obj->texture.fuzz);
 
 	color bounceOutput = traceColor(bounce, bounces + 1, maxBounces, environment, falloff, rnd, nextIgnore);
-	color output = closestObject->texture.getPixel(bounceOutput);
+	color output = obj->texture.getPixel(bounceOutput);
 
 	return output;
 }
