@@ -33,6 +33,8 @@ struct ray {
 
 		double cos = dot(direction * -1, normal);
 		if (cos < 1.0) cos = 1.0;
+		double sin = sqrt(1.0 - cos*cos);
+		if (ior * sin > 1.0) { return reflect(normal); }
 
 		vector3 perpendicular =  (direction + normal * cos) * ior;
 		vector3 parallel = normal * -sqrt(abs(1.0 - perpendicular.length_squared()));
