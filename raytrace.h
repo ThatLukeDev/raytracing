@@ -30,12 +30,18 @@ color traceColor(ray& r, int bounces, int maxBounces, environmentC environment, 
 	vector3 normal = obj->normalAt(intersect);
 	vector3 randVector = vector3(rnd.randN(), rnd.randN(), rnd.randN()).unit();
 	ray bounce = ray(intersect, r.direction);
-	object* nextIgnore = nullptr;
-	if (rnd.randDouble() < obj->texture.transparency) { bounce = bounce.refract(normal, obj->texture.ior); nextIgnore = &(*obj); }
-	else { bounce = bounce.reflect(normal); }
-	bounce = bounce.fuzz(randVector, 1 - obj->texture.fuzz);
+	if (rnd.randDouble() < obj->texture.transparency) {
+		bounce = bounce.refract(normal, obj->texture.ior);
+		bounce.origin.X -= normal.X * 0.01;
+		bounce.origin.Y -= normal.Y * 0.01;
+		bounce.origin.Z -= normal.Z * 0.01;
+	}
+	else {
+		bounce = bounce.reflect(normal);
+	}
+	bounce = bounce.fuzz(randVector, obj->texture.fuzz);
 
-	color bounceOutput = traceColor(bounce, bounces + 1, maxBounces, environment, falloff, rnd, nextIgnore);
+	color bounceOutput = traceColor(bounce, bounces + 1, maxBounces, environment, falloff, rnd, nullptr);
 	color output = obj->texture.getPixel(bounceOutput);
 
 	return output;

@@ -29,10 +29,14 @@ struct ray {
 	}
 
 	ray refract(vector3 normal, double ior) {
+		if (dot(normal, direction) < 0.0) { ior = 1.0 / ior; }
+
 		double cos = dot(direction * -1, normal);
 		if (cos < 1.0) cos = 1.0;
+
 		vector3 perpendicular =  (direction + normal * cos) * ior;
-		vector3 parallel = normal * -sqrt(fabs(1.0 - perpendicular.length_squared()));
+		vector3 parallel = normal * -sqrt(abs(1.0 - perpendicular.length_squared()));
+
 		return ray(origin, (perpendicular + parallel).unit());
 	}
 };

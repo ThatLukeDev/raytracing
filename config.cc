@@ -37,12 +37,17 @@ double colorClampMax = 240;
 
 vector<shared_ptr<object>> objects {
 	make_shared<sphere>(sphere(
+		vector3(0,0,3),2,
+		color(200,200,200),0.5,1.0,0.0,1.0,1.5
+	)),
+
+	make_shared<sphere>(sphere(
 		vector3(-3,-1,3),1,
 		color(200,200,200),0.5,0.9,0.5,0.0,1.0
 	)),
 	make_shared<sphere>(sphere(
 		vector3(0,-1,3),1,
-		color(200,20,10),0.5,0.0,0.0,0.0,1.0
+		color(200,20,10),0.5,0.0,1.0,0.0,1.0
 	)),
 	make_shared<sphere>(sphere(
 		vector3(3,-1,3),1,
@@ -50,11 +55,11 @@ vector<shared_ptr<object>> objects {
 	)),
         make_shared<sphere>(sphere(
 		vector3(3,4,3),2,
-		color(235,215,55),10.0,0.0,0.0,0.0,1.0
+		color(235,215,55),10.0,0.0,1.0,0.0,1.0
 	)),
         make_shared<sphere>(sphere(
 		vector3(0,-1002,3),1000,
-		color(35,140,35),0.5,0.0,0.0,0.0,1.0
+		color(35,140,35),0.5,0.0,1.0,0.0,1.0
 	)),
 };
 int objectsLength = objects.size();
