@@ -1,9 +1,9 @@
 #ifndef raytrace_h
 #define raytrace_h
 #include <cmath>
-#include "ray.h"
-#include "pixel.h"
-#include "vector3.h"
+#include "ray.hpp"
+#include "pixel.hpp"
+#include "vector3.hpp"
 
 color traceColor(ray& r, int bounces, int maxBounces, environmentC environment, double falloff, randomDistribution& rnd, object* ignore) {
 	if (bounces > maxBounces)

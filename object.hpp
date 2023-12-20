@@ -1,8 +1,8 @@
 #ifndef object_h
 #define object_h
 
-#include "vector3.h"
-#include "shader.h"
+#include "vector3.hpp"
+#include "shader.hpp"
 
 class object {
 public:

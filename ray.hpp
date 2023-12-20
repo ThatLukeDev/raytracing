@@ -1,7 +1,7 @@
 #ifndef ray_h
 #define ray_h
 #include <cmath>
-#include "vector3.h"
+#include "vector3.hpp"
 
 struct ray {
 	vector3 origin;

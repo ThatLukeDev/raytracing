@@ -11,17 +11,17 @@
 using namespace std;
 const double pi = 3.141592653589793238463;
 
-#include "threading.h"
-#include "random.h"
-#include "progressbar.h"
-#include "pixel.h"
-#include "vector3.h"
-#include "vector2.h"
-#include "ray.h"
-#include "object.h"
-#include "sphere.h"
+#include "threading.hpp"
+#include "random.hpp"
+#include "progressbar.hpp"
+#include "pixel.hpp"
+#include "vector3.hpp"
+#include "vector2.hpp"
+#include "ray.hpp"
+#include "object.hpp"
+#include "sphere.hpp"
 #include "config.cc"
-#include "raytrace.h"
+#include "raytrace.hpp"
 
 int main() {
 	clog << "RENDER SETTINGS:" << endl;

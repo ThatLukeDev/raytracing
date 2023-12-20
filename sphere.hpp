@@ -2,10 +2,10 @@
 #define sphere_h
 #include <iostream>
 #include <cmath>
-#include "vector3.h"
-#include "pixel.h"
-#include "ray.h"
-#include "object.h"
+#include "vector3.hpp"
+#include "pixel.hpp"
+#include "ray.hpp"
+#include "object.hpp"
 
 struct sphere : public object {
 	double radius = 0;
